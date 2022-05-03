@@ -1,0 +1,58 @@
+Workout.create!([
+ {
+   user_id: 1,
+   title: "Barbell Flat Bench Press",
+   sets: 5,
+   reps: 10,
+   weight: 315,
+   image: "https://www.bodybuilding.com/fun/images/2015/layne-norton-bench-tutorial-graphics-5-700xh.jpg",
+   # likes: 7,
+ },
+ {
+   user_id: 1,
+   title: "Barbell Incline Bench Press",
+   sets: 5,
+   reps: 10,
+   weight: 225,
+   image: "https://www.bodybuilding.com/images/2020/xdb/originals/xdb-3n-incline-dumbbell-bench-press-m1-16x9.jpg",
+   # likes: 7,
+ },
+ {
+   user_id: 1,
+   title: "Barbell Decline Bench Press",
+   sets: 5,
+   reps: 10,
+   weight: 345,
+   image: "https://www.bodybuilding.com/images/2020/xdb/originals/xdb-34n-decline-barbell-bench-press-m2-16x9.jpg",
+   # likes: 7,
+ },
+ {
+   user_id: 1,
+   title: "Tricep Push Down(overhand)",
+   sets: 3,
+   reps: 10,
+   weight: 120,
+   image: "https://www.bodybuilding.com/images/2020/xdb/originals/xdb-17c-cable-v-bar-push-down-m1-16x9.jpg",
+   # likes: 7,
+ },
+ {
+   user_id: 1,
+   title: "Dips",
+   sets: 3,
+   reps: 10,
+   weight: 45,
+   image: "https://www.bodybuilding.com/images/2020/xdb/originals/xdb-2m-chest-dip-m2-16x9.jpg",
+   # likes: 7,
+ },
+ {
+   user_id: 1,
+   title: "Tricep Pull Down(underhand)",
+   sets: 3,
+   reps: 10,
+   weight: 45,
+   image: "https://www.bodybuilding.com/images/2020/xdb/originals/xdb-19c-reverse-grip-cable-straight-bar-push-down-m1-16x9.jpg",
+   # likes: 7,
+ },
+ ])
+ 
+puts "✅ Done seeding workouts!"
