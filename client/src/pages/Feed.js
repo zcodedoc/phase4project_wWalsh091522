@@ -5,10 +5,6 @@ import { Button } from "../styles";
 import Paper from '@mui/material/Paper';
 import Post from "../components/Post";
 
-function handleClick(event) {
-  event.preventDefault();
-  console.info('You clicked a breadcrumb.');
-}
 
 
 function Feed({user, setUser}) {
@@ -57,20 +53,16 @@ function Feed({user, setUser}) {
   }, []);
 
   return (
-    <div style={{width: '100%', display: 'flex'}}>
-        <div style={{minWidth: '10%', maxWidth: '10%', marginTop: '0%'}}>
+      <div style={{width: '100%', display: 'flex'}}>
+          <div style={{minWidth: '10%', maxWidth: '10%', marginTop: '0%'}}>
   
-        </div>
+          </div>
 
+          <Wrapper>
+              <div style={{width: '80%', marginLeft: '7.5%', marginTop: '0%', border: '0px solid black'}}>
+                  <h2 style={{marginLeft: '32.5%', width: '50%',  paddingLeft: '0px',  marginTop: '2.5%', marginBottom: '2.5%', padding: '10px', border: '0px solid black'}}>Feed</h2>
+              </div>
 
-        <Wrapper>
-      
-        <div style={{width: '80%', marginLeft: '7.5%', marginTop: '0%', border: '0px solid black'}}>
-            <h2 style={{marginLeft: '32.5%', width: '50%',  paddingLeft: '0px',  marginTop: '2.5%', marginBottom: '2.5%', padding: '10px', border: '0px solid black'}}>Feed</h2>
- 
-        </div>
-
-                
                 {workouts.length > 0 ? (
                   workouts.map((workout) => (
                       <Post 
@@ -91,12 +83,12 @@ function Feed({user, setUser}) {
                         <Button as={Link} to="/newworkout">
                           Make a New Post
                         </Button>
-                        </div>
+                      </div>
                       </>
                 )}
-    </Wrapper>
+          </Wrapper>
     
-    </div>
+      </div>
   );
 }
 

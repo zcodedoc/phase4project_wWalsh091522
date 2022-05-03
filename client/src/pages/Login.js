@@ -18,9 +18,7 @@ function Login({ onLogin }) {
           <div style={{ marginTop: '20%', height: '100px', width: '100px', textAlign: 'center', marginLeft: '20%', borderRadius: '20px',  boxShadow: '0.5em 0.5em 1em 0.125em rgb(10 10 10 / 10%)' }}>
               <Box sx={{ width: '100%', maxWidth: 500 , paddingTop: '40%'}}>
                   <Typography className="logo1" style={{fontSize: '12px', marginLeft: '0px', marginTop: '0px'}}>fitnesstracker</Typography>
-      
               </Box>
-      
           </div>
           <div style={{display: 'flex', marginTop: '20%', maxHeight: '100px', width: '200px', marginLeft: '2.5%'}}>
               <Typography style={{fontSize: '32px', marginLeft: '20px', marginTop: '25px'}}>FitnessTracker</Typography>
@@ -28,32 +26,32 @@ function Login({ onLogin }) {
           <div style={{marginLeft: '-45%', marginTop: '45%', maxHeight: '100px', width: '500px'}}>
                <Typography style={{fontSize: '28px'}}>Log and Track Your Fitness Goals</Typography>
           </div>
-       </div>
+      </div>
       <Wrapper>
           <div className="logo1">fitnesstracker.</div>
-          {showLogin ? (
-            <>
-            <LoginForm onLogin={onLogin} />
-            <Divider />
-            <p>
-              Don't have an account? &nbsp;
-              <Button color="secondary" onClick={() => setShowLogin(false)}>
-                Sign Up
-              </Button>
-            </p>
-            </>
+            {showLogin ? (
+              <>
+                <LoginForm onLogin={onLogin} />
+                <Divider />
+                <p>
+                  Don't have an account? &nbsp;
+                  <Button color="secondary" onClick={() => setShowLogin(false)}>
+                    Sign Up
+                  </Button>
+                </p>
+              </>
         ) : (
-            <>
-            <SignUpForm onLogin={onLogin} />
-            <Divider />
-            <p>
-              Already have an account? &nbsp;
-              <Button color="secondary" onClick={() => setShowLogin(true)}>
-                Log In
-              </Button>
-            </p>
-            </>
-        )}
+              <>
+                <SignUpForm onLogin={onLogin} />
+                <Divider />
+                <p>
+                  Already have an account? &nbsp;
+                  <Button color="secondary" onClick={() => setShowLogin(true)}>
+                    Log In
+                  </Button>
+                </p>
+              </>
+          )}
       </Wrapper>
    </div>
   );

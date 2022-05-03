@@ -20,7 +20,6 @@ function App() {
   
   function handleLogin(user) {
     setUser(user);
-    
   }
 
   if (!user) return <Login onLogin={handleLogin} />;
@@ -30,18 +29,17 @@ function App() {
     <NavBar user={user} setUser={setUser}/>
     <main style={{fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>
       <Switch>
-      <Route path='/newworkout'>
-        <NewWorkouts user={user} setUser={setUser}/>
-      </Route>
-      <Route path='/profile'>
-        <Profile user={user} setUser={setUser}/>
-      </Route>
-      <Route path='/'>
-       <Feed user={user} setUser={setUser}/>
-      </Route>
+          <Route path='/newworkout'>
+            <NewWorkouts user={user} setUser={setUser}/>
+          </Route>
+          <Route path='/profile'>
+            <Profile user={user} setUser={setUser}/>
+          </Route>
+          <Route path='/'>
+            <Feed user={user} setUser={setUser}/>
+          </Route>
       </Switch>
     </main>
-  
     </>
   );
 }
