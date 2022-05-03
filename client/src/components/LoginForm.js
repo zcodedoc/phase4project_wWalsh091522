@@ -29,8 +29,8 @@ function LoginForm({ onLogin }) {
 
   return (
     
-    <form onSubmit={handleSubmit}>
-      <FormField>
+    <form style={{fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onSubmit={handleSubmit}>
+      <FormField >
         
         <Label htmlFor="username">Username</Label>
         <Input

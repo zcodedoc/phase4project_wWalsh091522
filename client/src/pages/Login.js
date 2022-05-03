@@ -14,7 +14,7 @@ function Login({ onLogin }) {
   return (
    
   <div style={{display: 'flex', flexDirection: 'row'}}>
-      <div style={{display: 'flex', marginTop: '0%', width: '50%', height: '700px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 10%)'}}> 
+      <div style={{display: 'flex', marginTop: '0%', width: '50%', height: '900px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 10%)'}}> 
           <div style={{ marginTop: '20%', height: '100px', width: '100px', textAlign: 'center', marginLeft: '20%', borderRadius: '20px',  boxShadow: '0.5em 0.5em 1em 0.125em rgb(10 10 10 / 10%)' }}>
               <Box sx={{ width: '100%', maxWidth: 500 , paddingTop: '40%'}}>
                   <Typography className="logo1" style={{fontSize: '12px', marginLeft: '0px', marginTop: '0px'}}>fitnesstracker</Typography>
