@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Box, Button } from "../styles";
-// import Typography from '@mui/material/Typography';
-import Fab from '@mui/material/Fab';
-import Divider from '@mui/material/Divider';
+import { Button } from "../styles";
 import Paper from '@mui/material/Paper';
-// import Stack from '@mui/material/Stack';
-// import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-// import Grid from '@mui/material/Grid';
-// import Menu from '@mui/material/Menu';
-// import LogoutIcon from '@mui/icons-material/Logout';
-// import ModeEditOutlineRoundedIcon from '@mui/icons-material/ModeEditOutlineRounded';
-// import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import Post from "../components/Post";
 
 function handleClick(event) {
@@ -25,16 +15,8 @@ function Feed({user, setUser}) {
   const [workouts, setWorkouts] = useState([]);
   const [comments, setComments] = useState([]);
   const [spacing, setSpacing] = React.useState(2);
-  // const [open, setOpen] = React.useState(false);
-  // const [isScrolled, setIsScrolled] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open2 = Boolean(anchorEl);
-  const handleClick2 = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose2 = () => {
-    setAnchorEl(null);
-  };
 
   function handleUpdateWorkoutList(updatedWorkout) {
     const updatedWorkoutsArray = workouts?.map((workout) => {
