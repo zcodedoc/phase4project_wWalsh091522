@@ -76,14 +76,14 @@ function Feed({user, setUser}) {
 
   return (
     <div style={{width: '100%', display: 'flex'}}>
-        {/* <div style={{minWidth: '10%', marginTop: '0%'}}>
+        <div style={{minWidth: '10%', maxWidth: '10%', marginTop: '0%'}}>
   
-        </div> */}
+        </div>
 
 
         <Wrapper>
       
-        <div style={{width: '80%', marginLeft: '10%', marginTop: '0%', border: '0px solid black'}}>
+        <div style={{width: '80%', marginLeft: '7.5%', marginTop: '0%', border: '0px solid black'}}>
             <h2 style={{marginLeft: '32.5%', width: '50%',  paddingLeft: '0px',  marginTop: '2.5%', marginBottom: '2.5%', padding: '10px', border: '0px solid black'}}>Feed</h2>
  
         </div>

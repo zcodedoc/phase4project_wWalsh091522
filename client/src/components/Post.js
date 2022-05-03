@@ -126,7 +126,6 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
           user_id: currentUser.id,
           workout_id: id,
           comment
-          
         }),
       }).then((r) => {
         setIsLoading(false);
@@ -192,13 +191,13 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
 
     return (
         <div>
-            <Box style={{display: 'flex', flexDirection: 'row', marginLeft: '20px'}}>
+            <Box style={{display: 'flex', flexDirection: 'row', marginLeft: '10%'}}>
               <>
                 <div style={{display: 'flex', marginLeft: '20%', marginTop: '10px', marginBottom: '20px'}}>
                   <Grid sx={{ flexGrow: 1 }}  container spacing={1}> 
                     <Grid item xs={4}>
         
-                        <div style={{ boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 20%)', minWidth: '900px', marginLeft: '40%',}}>
+                        <div style={{ boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 20%)', minWidth: '900px', marginLeft: '15%',}}>
                           <div style={{padding: '20px', maxHeight: '100px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)', display: 'flex'}}>
                     
                             <img 
@@ -212,6 +211,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                             </div>
                           <Button onClick={handleClick2} style={{height: '40px', marginLeft: '550px', marginTop: '10px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)',}}><MoreHorizIcon/></Button>
                             <Menu
+                            style={{marginTop: '5px', marginRight: '30px'}}
                                 id="basic-menu"
                                 anchorEl={anchorEl}
                                 open={open2}
@@ -220,15 +220,16 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                                   'aria-labelledby': 'basic-button',
                                 }}
                                 >
-                                <div style={{height: '50px', width: '120%'}}>
-                                    <ModeEditOutlineRoundedIcon style={{height: '25px', width: '25px', marginTop: '10px', marginLeft: '5px'  }}/>
-                                    <span style={{marginLeft: '10px', paddingRight: '30px'}} onClick={handleOpenModal}>Edit</span>
+                               <div style={{  marginTop: '0px', marginRight: '0px', marginLeft: '-5px', padding: '0%', paddingLeft: '0%', width: '150px', height: '110px', border: '0px solid red'}} >
+                                <div style={{marginTop: '5px', height: '50px', marginLeft: '7.5%', width: '85%', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', borderRadius: '10px', padding: '0px', display: 'flex', cursor: 'pointer' }}>
+                                    <ModeEditOutlineRoundedIcon style={{height: '25px', width: '25px', marginTop: '10px', marginLeft: '20px', border: '0px solid black',  }}/>
+                                    <span style={{height: '25px', width: '45px', fontSize: '18px', marginTop: '12px', marginLeft: '5px', marginLeft: '10px', paddingRight: '0px', border: '0px solid red', fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onClick={handleOpenModal}>Edit</span>
                                 </div>
-                                <div style={{height: '50px', width: '120%'}}>
-                                    <DeleteRoundedIcon style={{height: '25px', width: '25px', marginTop: '10px', marginLeft: '5px'  }}/>
-                                    <span style={{marginLeft: '10px', paddingRight: '30px'}} onClick={handleDeleteWorkout}>Delete</span>
+                                <div style={{marginTop: '5px', height: '50px', marginLeft: '7.5%', width: '85%', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', borderRadius: '10px', padding: '0px', display: 'flex', cursor: 'pointer'}}>
+                                    <DeleteRoundedIcon style={{height: '25px', width: '25px', marginTop: '10px', marginLeft: '20px'  }}/>
+                                    <span style={{height: '25px', width: '45px', fontSize: '18px', marginTop: '12px', marginLeft: '5px', marginLeft: '10px', paddingRight: '0px', border: '0px solid red', fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onClick={handleDeleteWorkout}>Delete</span>
                                 </div>
-              
+                              </div>
                               </Menu>
                         </div>
 
