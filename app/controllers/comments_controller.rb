@@ -1,7 +1,5 @@
 class CommentsController < ApplicationController
   wrap_parameters false
-  # skip_before_action :authorized, only: :create
-  # wrap_parameters format: []
 	rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
   
     def index
@@ -22,11 +20,11 @@ class CommentsController < ApplicationController
       end
     end
   
-    # def show
-    #   return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
-    #   comment = Comment.all.find_by(params[:workout_id])
-    #   render json: comment
-    # end
+    def show
+      return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+      comments = Comment.find_by(workout_id: params[:workout_id])
+      render json: comments
+    end
     
     private
   
