@@ -44,72 +44,72 @@ function SignUpForm({ onLogin }) {
     <form style={{fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onSubmit={handleSubmit}>
       <FormField>
         <Label htmlFor="username">Username</Label>
-        <Input
-          type="text"
-          id="username"
-          autoComplete="off"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+          <Input
+            type="text"
+            id="username"
+            autoComplete="off"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
       </FormField>
       <FormField>
         <Label htmlFor="password">Password</Label>
-        <Input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          autoComplete="current-password"
-        />
+          <Input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
+          />
       </FormField>
       <FormField>
         <Label htmlFor="password">Password Confirmation</Label>
-        <Input
-          type="password"
-          id="password_confirmation"
-          value={passwordConfirmation}
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-          autoComplete="current-password"
-        />
+          <Input
+            type="password"
+            id="password_confirmation"
+            value={passwordConfirmation}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+            autoComplete="current-password"
+          />
       </FormField>
       <FormField>
-      <Label htmlFor="name">Name</Label>
-        <Input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+        <Label htmlFor="name">Name</Label>
+          <Input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
       </FormField>
       <FormField>
         <Label htmlFor="imageUrl">Profile Image</Label>
-        <Input
-          type="text"
-          id="imageUrl"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-        />
+          <Input
+            type="text"
+            id="imageUrl"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+          />
       </FormField>
       <FormField>
         <Label htmlFor="header">Header</Label>
-        <Input
-          type="text"
-          id="header"
-          value={header}
-          onChange={(e) => setHeader(e.target.value)}
-        />
+          <Input
+            type="text"
+            id="header"
+            value={header}
+            onChange={(e) => setHeader(e.target.value)}
+          />
       </FormField>
       <FormField>
-      <Label htmlFor="bio">Bio</Label>
-        <Input
-          type="text"
-          id="bio"
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-        />
+        <Label htmlFor="bio">Bio</Label>
+          <Input
+            type="text"
+            id="bio"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+          />
       </FormField>
       <FormField>
-        <Button type="submit">{isLoading ? "Loading..." : "Sign Up"}</Button>
+          <Button type="submit">{isLoading ? "Loading..." : "Sign Up"}</Button>
       </FormField>
       <FormField>
         {errors.map((err) => (

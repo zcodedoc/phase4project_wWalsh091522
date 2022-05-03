@@ -30,31 +30,30 @@ function LoginForm({ onLogin }) {
   return (
     
     <form style={{fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onSubmit={handleSubmit}>
-      <FormField >
-        
-        <Label htmlFor="username">Username</Label>
-        <Input
-          type="text"
-          id="username"
-          autoComplete="off"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+      <FormField>
+          <Label htmlFor="username">Username</Label>
+            <Input
+              type="text"
+              id="username"
+              autoComplete="off"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
       </FormField>
       <FormField>
-        <Label htmlFor="password">Password</Label>
-        <Input
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <Label htmlFor="password">Password</Label>
+            <Input
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
       </FormField>
       <FormField>
-        <Button variant="fill" color="primary" type="submit">
-          {isLoading ? "Loading..." : "Login"}
-        </Button>
+          <Button variant="fill" color="primary" type="submit">
+            {isLoading ? "Loading..." : "Login"}
+          </Button>
       </FormField>
       <FormField>
         {errors.map((err) => (
