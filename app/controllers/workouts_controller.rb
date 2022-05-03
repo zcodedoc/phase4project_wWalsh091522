@@ -6,7 +6,7 @@ class WorkoutsController < ApplicationController
 
     def index        
       return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
-      workouts = Workout.all.includes(:user).order("created_at DESC")
+      workouts = Workout.all.includes(:user).order("created_at ASC")
       puts json: workouts
       puts json: workouts.to_a
       render json: workouts
