@@ -38,6 +38,15 @@ function Feed({user, setUser}) {
   const handleChange = (event) => {
     setSpacing(Number(event.target.value));
   };
+  const getComments = (workout_id) => {
+    let currComments = []
+    comments.map(comment => {
+      if (comment.workout_id === workout_id) {
+        currComments.push(comment);
+      }
+    })
+    return currComments;
+  }
   
   useEffect(() => {
     fetch("/workouts")
@@ -73,7 +82,7 @@ function Feed({user, setUser}) {
                       username={user?.username}
                       userimage={user?.image}
                       currentUser={user}
-                      comments={comments}
+                      comments={getComments(workout?.id)}
                       />
                   ))
                      ) : (

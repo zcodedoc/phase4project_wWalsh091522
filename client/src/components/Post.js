@@ -49,12 +49,10 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
     const history = useHistory();
     const handleModalClose = () => setOpen(false);
     const handleOpen = () => setOpen(true);
+    const [thisComments, setThisComments] = useState([]);
     const open2 = Boolean(anchorEl);
     var myWorkout = false;
     console.log(currentUser?.id + "HITTING HERE");
-    if (currentUser?.id === workout.user?.id) {
-      myWorkout = true;
-    }
 
     const handleClick2 = (event) => {
       setAnchorEl(event.currentTarget);
@@ -194,7 +192,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
             }
         })
         }
-
+      
     return (
         <div>
             <Box style={{display: 'flex', flexDirection: 'row', marginLeft: '10%'}}>
@@ -278,7 +276,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                             {openComment ? (
                               <Box>
                                 <Typography style={{fontSize: '20px', marginLeft: '20%', marginBottom: '30px'}}>Comments</Typography>
-                                    {workout.comments.length > 0 ? (
+                                    {comments.length > 0 ? (
                                       comments.map((comment) => (
                                         <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'left', marginLeft: '20%', maxWidth: '60%', maxHeight: '80px', borderRadius: '10px', marginBottom: '10px', boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 20%)'}}>
                                             <img 
