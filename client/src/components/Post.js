@@ -14,6 +14,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { useHistory } from "react-router";
 import SendIcon from '@mui/icons-material/Send';
@@ -33,26 +34,31 @@ const style = {
   };
 
 
-function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout, handleUpdateWorkoutList }) {
+function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout, handleUpdateWorkoutList, getNewComments }) {
+  console.log(comments);
     const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
+
     const [formData, setFormData] = useState(workout);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [checked, setChecked] = React.useState(false);
     const [isLiked, setIsLiked] = React.useState(false);
     const [postLikes, setPostLikes] = useState(workout.likes);
-    const [opena, setOpena] = React.useState(false);
+    const [isCommentedOn, setIsCommentedOn] = React.useState(false);
+    const [postComments, setPostComments] = useState(workout.comments.length);
     const [openModal, setOpen] = React.useState(false);
     const [openComment, setOpenComment] = React.useState(false);
     const [comment, setComment] = useState();
     const [errors, setErrors] = useState([]);
+    const [localComments, setLocalComments] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
     const handleModalClose = () => setOpen(false);
     const handleOpen = () => setOpen(true);
-    const [thisComments, setThisComments] = useState([]);
     const open2 = Boolean(anchorEl);
     var myWorkout = false;
-    console.log(currentUser?.id + "HITTING HERE");
+      if (currentUser?.id === workout.user?.id) {
+        myWorkout = true;
+      }
 
     const handleClick2 = (event) => {
       setAnchorEl(event.currentTarget);
@@ -106,7 +112,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
       .then((res) => {
         if (res.ok) {
           console.log(res);
-          onUpdateWorkout(workout);
+          // onUpdateWorkout(workout);
         } else {
           res.json().then(console.log)
         }
@@ -132,25 +138,49 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
           comment
         }),
       }).then((r) => {
+        
+        console.log(r.json())
         setIsLoading(false);
         if (r.ok) {
-          history.push("/");
-          setComment(comment);
+          getNewComments();
+          setComment("");
+          setIsCommentedOn(true);
+          setPostComments((prev) => prev+1);
+          let newComment = {
+            comment,
+            user_id: currentUser.id,
+            workout_id: id,
+          }
+          localComments.push(newComment)
+          console.log("HITTING THIS SECTION COMMS")
+          console.log(comments)
         } else {
           r.json().then((err) => setErrors(err.errors));
         }
       });
     }
-
+    async function breakoutLikes() {
+      setPostLikes((prev) => prev+1);
+      console.log(postLikes)
+      return true;
+    }
     function handleUpdateWorkoutLikes(e) {
-      console.log("HITTING UPDATE Function to patch request")
-      console.log(formData);
-      debugger;
-      setFormData({
-        ...formData,
-        [e.target.id]: e.target.value,
-      });
-      fetch(`/workouts/${id}/like`, {
+     
+
+     
+      if (isLiked) {
+       
+        
+        
+        setFormData({
+          ...formData,
+          likes: postLikes
+         
+        });
+       
+        setPostLikes((prev) => prev-1);
+        
+        fetch(`/workouts/${id}/like`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -160,17 +190,61 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
       .then((res) => {
         if (res.ok) {
           console.log(res);
-          setIsLiked(true);
-          setPostLikes((prev) => prev+1);
-          onUpdateWorkout(workout);
+         
         } else {
           res.json().then(console.log)
         }
       })
+      setIsLiked(false);
+      
+      }
+      else {
+        let newlikes = postLikes + 1
+        
+        console.log("HITTING HERE NOW")
+       
+        breakoutLikes();
+        
+       
+        console.log(postLikes + 1)
+        setIsLiked(true);
+         
+          fetch(`/workouts/${id}/like`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({likes: postLikes + 1}),
+          })
+          .then((res) => {
+            if (res.ok) {
+              console.log(res);
+              
+            } else {
+              res.json().then(console.log)
+            }
+          })
+       
+        
+        
+        
+        
+      
+
+        
+        
+      }
+
+
+      
+      console.log(postLikes)
+      
     }
 
 
+
       function handleChange(e) {
+        console.log("HITTING THIS CHANGE FUNCTION")
         console.log(e.target);
         let test = e.target;
         console.log(test.type);
@@ -192,7 +266,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
             }
         })
         }
-      
+        console.log(localComments)
     return (
         <div>
             <Box style={{display: 'flex', flexDirection: 'row', marginLeft: '10%'}}>
@@ -213,8 +287,10 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                               <Typography style={{marginTop: '0px', fontSize: '16px', fontWeight: '350'}}>@{workout.user.username}</Typography>
       
                             </div>
+                            {myWorkout ? (
+                               <>
                           <Button onClick={handleClick2} style={{height: '40px', marginLeft: '550px', marginTop: '10px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)',}}><MoreHorizIcon/></Button>
-                          {myWorkout ? (
+           
                             <Menu
                             style={{marginTop: '5px', marginRight: '30px'}}
                                 id="basic-menu"
@@ -236,6 +312,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                                 </div>
                               </div>
                               </Menu>
+                              </>
                                ) : null}
                         </div>
 
@@ -260,17 +337,29 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                         </div>
                   
                           <div style={{border: '0px solid black', padding: '10px', marginTop: '0px'}}>
+                          {isLiked ? (
                             <Fab onClick={handleUpdateWorkoutLikes} variant="extended" style={{backgroundColor: 'white',boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', marginTop: '5px', marginBottom: '20px', marginRight: '30px', height: '40px', padding: '0px', width: '100px'}}>
-                              {isLiked ? ( 
                               <FavoriteIcon style={{color: 'red'}} />
-                              ) : (
-                              <FavoriteBorderIcon/>)}
-                              <Typography style={{marginRight: '0px', marginLeft: '5px', fontSize: '18px'}}>{postLikes}</Typography>
-                            </Fab> 
+                            <Typography style={{marginRight: '0px', marginLeft: '5px', fontSize: '18px'}}>{postLikes}</Typography>
+                          </Fab>
+                          )
+                          : 
+                          <Fab onClick={handleUpdateWorkoutLikes} variant="extended" style={{backgroundColor: 'white',boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', marginTop: '5px', marginBottom: '20px', marginRight: '30px', height: '40px', padding: '0px', width: '100px'}}>
+                            <FavoriteBorderIcon/>
+                            <Typography style={{marginRight: '0px', marginLeft: '5px', fontSize: '18px'}}>{postLikes}</Typography>
+                          </Fab> 
+                          }
+                            
+
+                            
+
                             <ClickAwayListener>
                               <Fab onClick={handleClickComment} type="button" variant="extended" style={{backgroundColor: 'white',boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', marginTop: '5px', marginBottom: '20px', marginRight: '30px', height: '40px', padding: '0px', width: '100px'}}>
-                                <ModeCommentOutlinedIcon/> 
-                                <Typography style={{marginRight: '0px', marginLeft: '5px', fontSize: '18px'}}></Typography> 
+                              {isCommentedOn ? ( 
+                              <ModeCommentOutlinedIcon/> 
+                              ) : (
+                                <ModeCommentIcon />)}
+                                <Typography style={{marginRight: '0px', marginLeft: '5px', fontSize: '18px'}}>{postComments}</Typography> 
                               </Fab> 
                             </ClickAwayListener>
                             {openComment ? (
@@ -464,10 +553,11 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                                                         />
                                                       </div>
                                                       <Button
-                                                        style={{boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 30%)',  width: '30%', marginLeft: '62.5%'}} 
+                                                      
+                                                        style={{boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 30%)',  width: '40%', marginLeft: '50%', backgroundColor: 'black', color: 'white'}} 
                                                         onClick={handleUpdateWorkoutList }
                                                           type="submit"
-                                                          className="tweetBox__tweetButton"
+                                                         
                                                         >
                                                         Save
                                                       </Button>

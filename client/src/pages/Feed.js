@@ -47,6 +47,11 @@ function Feed({user, setUser}) {
     })
     return currComments;
   }
+  const getNewComments = () => {
+    fetch("/comments")
+    .then((r) => r.json())
+    .then(setComments);
+  }
   
   useEffect(() => {
     fetch("/workouts")
@@ -83,6 +88,7 @@ function Feed({user, setUser}) {
                       userimage={user?.image}
                       currentUser={user}
                       comments={getComments(workout?.id)}
+                      getNewComments={getNewComments}
                       />
                   ))
                      ) : (
