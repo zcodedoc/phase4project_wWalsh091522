@@ -10,6 +10,7 @@ import ModeEditOutlineRoundedIcon from '@mui/icons-material/ModeEditOutlineRound
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
+import Divider from '@mui/material/Divider';
 import CloseIcon from '@mui/icons-material/Close';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -99,9 +100,8 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
  
 
     function handleUpdateWorkout() {
-      console.log("HITTING UPDATE Function to patch request")
-      console.log(formData);
-  
+      // console.log("HITTING UPDATE Function to patch request")
+      // console.log(formData);
       fetch(`/workouts/${id}`, {
         method: "PATCH",
         headers: {
@@ -112,7 +112,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
       .then((res) => {
         if (res.ok) {
           console.log(res);
-          // onUpdateWorkout(workout);
+          onUpdateWorkout(workout);
         } else {
           res.json().then(console.log)
         }
@@ -120,7 +120,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
     }
 
     function handleSubmit(e) {
-      console.log(currentUser);
+      // console.log(currentUser);
       e.preventDefault();
       setIsLoading(true);
       setFormData({
@@ -139,7 +139,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
         }),
       }).then((r) => {
         
-        console.log(r.json())
+        // console.log(r.json())
         setIsLoading(false);
         if (r.ok) {
           getNewComments();
@@ -159,57 +159,44 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
         }
       });
     }
+
     async function breakoutLikes() {
       setPostLikes((prev) => prev+1);
       console.log(postLikes)
       return true;
     }
-    function handleUpdateWorkoutLikes(e) {
-     
 
-     
+    function handleUpdateWorkoutLikes(e) {
       if (isLiked) {
-       
-        
-        
-        setFormData({
-          ...formData,
-          likes: postLikes
-         
+            setFormData({
+              ...formData,
+              likes: postLikes
         });
-       
         setPostLikes((prev) => prev-1);
-        
         fetch(`/workouts/${id}/like`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
         body: JSON.stringify(formData),
       })
       .then((res) => {
         if (res.ok) {
           console.log(res);
-         
-        } else {
+        } 
+        else {
           res.json().then(console.log)
         }
       })
       setIsLiked(false);
-      
       }
       else {
         let newlikes = postLikes + 1
-        
-        console.log("HITTING HERE NOW")
-       
+        // console.log("HITTING HERE NOW")
         breakoutLikes();
-        
-       
-        console.log(postLikes + 1)
+        // console.log(postLikes + 1)
         setIsLiked(true);
-         
-          fetch(`/workouts/${id}/like`, {
+        fetch(`/workouts/${id}/like`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",
@@ -224,21 +211,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
               res.json().then(console.log)
             }
           })
-       
-        
-        
-        
-        
-      
-
-        
-        
       }
-
-
-      
-      console.log(postLikes)
-      
     }
 
 
@@ -266,51 +239,48 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
             }
         })
         }
-        console.log(localComments)
+        // console.log(localComments)
     return (
-        <div>
-            <Box style={{display: 'flex', flexDirection: 'row', marginLeft: '10%'}}>
-              <>
-                <div style={{display: 'flex', marginLeft: '20%', marginTop: '10px', marginBottom: '20px'}}>
-                  <Grid sx={{ flexGrow: 1 }}  container spacing={1}> 
-                    <Grid item xs={4}>
-        
-                        <div style={{ boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 20%)', minWidth: '900px', marginLeft: '15%',}}>
-                          <div style={{padding: '20px', maxHeight: '100px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)', display: 'flex'}}>
-                    
-                            <img 
-                                style={{objectFit: 'cover', padding: '10px', border: '1px solid white',  marginLeft: '30px', minHeight: '50px', maxHeight: '50px', minWidth: '50px', maxWidth: '50px', borderRadius: '50px'}}
-                                src={workout.user.image}
-                            />
-                            <div style={{display: 'flex', flexDirection: 'column',}}>
-                              <Typography style={{marginTop: '15px', fontSize: '16px', fontWeight: '350', textTransform: 'capitalize'}}>{workout.user.name}</Typography>
-                              <Typography style={{marginTop: '0px', fontSize: '16px', fontWeight: '350'}}>@{workout.user.username}</Typography>
-      
-                            </div>
+            <div>
+                <Box style={{display: 'flex', flexDirection: 'row', marginLeft: '10%'}}>
+                  <>
+                    <div style={{display: 'flex', marginLeft: '20%', marginTop: '10px', marginBottom: '20px'}}>
+                        <Grid sx={{ flexGrow: 1 }}  container spacing={1}> 
+                            <Grid item xs={4}>
+                                <div style={{ boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 20%)', minWidth: '900px', marginLeft: '15%',}}>
+                                    <div style={{padding: '20px', maxHeight: '100px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 20%)', display: 'flex'}}>
+                                        <img 
+                                            style={{objectFit: 'cover', padding: '10px', border: '1px solid white', marginLeft: '30px', minHeight: '60px', maxHeight: '60px', minWidth: '60px', maxWidth: '60px', borderRadius: '50px'}}
+                                            src={workout.user.image}
+                                          />
+                                         <div style={{display: 'flex', flexDirection: 'column',}}>
+                                            <Typography style={{marginTop: '15px', fontSize: '18px', fontWeight: '350', textTransform: 'capitalize'}}>{workout.user.name}</Typography>
+                                            <Typography style={{marginTop: '0px', fontSize: '16px', fontWeight: '350'}}>@{workout.user.username}</Typography>
+                                        </div>
                             {myWorkout ? (
-                               <>
-                          <Button onClick={handleClick2} style={{height: '40px', marginLeft: '550px', marginTop: '10px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)',}}><MoreHorizIcon/></Button>
-           
-                            <Menu
-                            style={{marginTop: '5px', marginRight: '30px'}}
-                                id="basic-menu"
-                                anchorEl={anchorEl}
-                                open={open2}
-                                onClose={handleClose2}
-                                MenuListProps={{
-                                  'aria-labelledby': 'basic-button',
-                                }}
+                                <>
+                                  <Button onClick={handleClick2} style={{height: '40px', marginLeft: '65%', marginTop: '10px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)',}}><MoreHorizIcon/></Button>
+                                  <Menu
+                                  style={{marginTop: '5px', marginRight: '30px'}}
+                                  id="basic-menu"
+                                  anchorEl={anchorEl}
+                                  open={open2}
+                                  onClose={handleClose2}
+                                  MenuListProps={{
+                                    'aria-labelledby': 'basic-button',
+                                  }}
                                 >
-                               <div style={{  marginTop: '0px', marginRight: '0px', marginLeft: '-5px', padding: '0%', paddingLeft: '0%', width: '150px', height: '110px', border: '0px solid red'}} >
-                                <div style={{marginTop: '5px', height: '50px', marginLeft: '7.5%', width: '85%', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', borderRadius: '10px', padding: '0px', display: 'flex', cursor: 'pointer' }}>
-                                    <ModeEditOutlineRoundedIcon style={{height: '25px', width: '25px', marginTop: '10px', marginLeft: '20px', border: '0px solid black',  }}/>
-                                    <span style={{height: '25px', width: '45px', fontSize: '18px', marginTop: '12px', marginLeft: '5px', marginLeft: '10px', paddingRight: '0px', border: '0px solid red', fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onClick={handleOpenModal}>Edit</span>
-                                </div>
-                                <div style={{marginTop: '5px', height: '50px', marginLeft: '7.5%', width: '85%', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', borderRadius: '10px', padding: '0px', display: 'flex', cursor: 'pointer'}}>
-                                    <DeleteRoundedIcon style={{height: '25px', width: '25px', marginTop: '10px', marginLeft: '20px'  }}/>
-                                    <span style={{height: '25px', width: '45px', fontSize: '18px', marginTop: '12px', marginLeft: '5px', marginLeft: '10px', paddingRight: '0px', border: '0px solid red', fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onClick={handleDeleteWorkout}>Delete</span>
-                                </div>
-                              </div>
+                                  <div style={{  marginTop: '0px', marginRight: '0px', marginLeft: '0px', padding: '0%', paddingLeft: '0%', width: '150px', height: '110px', border: '0px solid red'}} >
+                                      <div style={{marginTop: '5px', marginBottom: '5px', height: '50px', marginLeft: '7.5%', width: '85%', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 10%)', borderRadius: '10px', padding: '0px', display: 'flex', cursor: 'pointer' }}>
+                                          <ModeEditOutlineRoundedIcon style={{height: '25px', width: '25px', marginTop: '10px', marginLeft: '20px', border: '0px solid black',  }}/>
+                                          <span style={{height: '25px', width: '45px', fontSize: '18px', marginTop: '12px', marginLeft: '5px', marginLeft: '10px', paddingRight: '0px', border: '0px solid red', fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onClick={handleOpenModal}>Edit</span>
+                                      </div>
+                                      <Divider/>
+                                      <div style={{marginTop: '5px', marginBottom: '5px', height: '50px', marginLeft: '7.5%', width: '85%', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 10%)', borderRadius: '10px', padding: '0px', display: 'flex', cursor: 'pointer'}}>
+                                          <DeleteRoundedIcon style={{height: '25px', width: '25px', marginTop: '10px', marginLeft: '20px'  }}/>
+                                          <span style={{height: '25px', width: '45px', fontSize: '18px', marginTop: '12px', marginLeft: '5px', marginLeft: '10px', paddingRight: '0px', border: '0px solid red', fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onClick={handleDeleteWorkout}>Delete</span>
+                                      </div>
+                                  </div>
                               </Menu>
                               </>
                                ) : null}
@@ -320,7 +290,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                             <img style={{objectFit: 'contain', minHeight: '300px', maxWidth: '100%'}}src={image}/>
                             <div style={{boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 20%)', display: 'flex', flexDirection: 'column', minWidth: '900px', marginLeft: '0%', marginTop: '-20%'}}>  
                                 <Typography style={{marginLeft: '100px', marginTop: '20px', fontSize: '24px', fontWeight: '300', padding: '10px', textTransform: 'capitalize', color: 'white'}}>{workout.title}</Typography>
-                                <Typography style={{marginLeft: '110px', marginTop: '-10px', fontSize: '18px', fontWeight: '300', padding: '10px', color: 'white'}}>{workout.description}</Typography>
+                                <Typography style={{marginLeft: '100px', marginTop: '-10px', fontSize: '18px', fontWeight: '300', padding: '10px', color: 'white'}}>{workout.description}</Typography>
                                 <div style={{boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 10%)', display: 'flex',  marginLeft: '120px', paddingLeft: '0px',}}>
                                     <Fab variant="extended" style={{backgroundColor: 'white', color: 'black', border: '1px solid white', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', marginTop: '5px', marginBottom: '20px', marginRight: '30px', height: '40px', padding: '0px', width: '120px'}}>
                                       <Typography style={{marginRight: '0px'}}>{workout.sets} sets</Typography>
@@ -355,7 +325,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
 
                             <ClickAwayListener>
                               <Fab onClick={handleClickComment} type="button" variant="extended" style={{backgroundColor: 'white',boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', marginTop: '5px', marginBottom: '20px', marginRight: '30px', height: '40px', padding: '0px', width: '100px'}}>
-                              {isCommentedOn ? ( 
+                              {!isCommentedOn ? ( 
                               <ModeCommentOutlinedIcon/> 
                               ) : (
                                 <ModeCommentIcon />)}
@@ -399,7 +369,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                                           onChange={(e) => setComment(e.target.value)}
                                         />
                                         <Button onClick={handleSubmit} style={{marginLeft: '0px', color: 'black', border: '0px solid black', boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 30%)', minWidth: '100px', maxHeight: '50px', marginTop: '10px' }}>
-                                          <SendIcon  style={{marginRight: '-10px', height: '25px', width: '25px'}} className="searchIcon"/>
+                                          <SendIcon style={{marginRight: '-10px', height: '25px', width: '25px'}} className="searchIcon"/>
                                         </Button>
                         
                                     </div>
