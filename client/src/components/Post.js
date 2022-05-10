@@ -323,7 +323,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
 
                             
 
-                            <ClickAwayListener>
+                            {/* <ClickAwayListener> */}
                               <Fab onClick={handleClickComment} type="button" variant="extended" style={{backgroundColor: 'white',boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', marginTop: '5px', marginBottom: '20px', marginRight: '30px', height: '40px', padding: '0px', width: '100px'}}>
                               {!isCommentedOn ? ( 
                               <ModeCommentOutlinedIcon/> 
@@ -331,7 +331,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                                 <ModeCommentIcon />)}
                                 <Typography style={{marginRight: '0px', marginLeft: '5px', fontSize: '18px'}}>{postComments}</Typography> 
                               </Fab> 
-                            </ClickAwayListener>
+                            {/* </ClickAwayListener> */}
                             {openComment ? (
                               <Box>
                                 <Typography style={{fontSize: '20px', marginLeft: '20%', marginBottom: '30px'}}>Comments</Typography>
@@ -368,9 +368,9 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                                           value={comment}
                                           onChange={(e) => setComment(e.target.value)}
                                         />
-                                        <Button onClick={handleSubmit} style={{marginLeft: '0px', color: 'black', border: '0px solid black', boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 30%)', minWidth: '100px', maxHeight: '50px', marginTop: '10px' }}>
+                                        <Fab onClick={handleSubmit} style={{marginLeft: '0px', color: 'black', backgroundColor: 'transparent', border: '0px solid black', boxShadow: ' 0.1em 0.0em 0.25em -0.1em rgb(10 10 10 / 40%)', minWidth: '80px', maxHeight: '60px', marginTop: '10px' }} variant="extended">
                                           <SendIcon style={{marginRight: '-10px', height: '25px', width: '25px'}} className="searchIcon"/>
-                                        </Button>
+                                        </Fab>
                         
                                     </div>
                                   </div>
