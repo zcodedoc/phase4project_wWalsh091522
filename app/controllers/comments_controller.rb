@@ -9,10 +9,7 @@ class CommentsController < ApplicationController
 
     def create
       userstuff =  User.find_by(id: session[:user_id])
-      # session[:user_id] = user.id
       comment = Comment.create({user: userstuff, comment: comment_params[:comment], user_id: comment_params[:user_id], workout_id: comment_params[:workout_id] })
-      # session[:comment_id] = comment.id
-    
       if comment.valid?
         render json: comment, status: :created
       else
@@ -32,12 +29,10 @@ class CommentsController < ApplicationController
       render json:{error: invalid.record.errors}, status: :unprocessable_entity
     end 
 
-    
     def find_comment
         Comment.find(params[:id])
     end
     
-
     def comment_params
       params.permit(:id, :user_id, :workout_id, :comment)
     end

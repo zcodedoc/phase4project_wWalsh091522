@@ -22,35 +22,24 @@ class WorkoutsController < ApplicationController
           render json: { errors: workout.errors.full_messages }, status: :unprocessable_entity
         end
     end
-    
 
-    def show
-      return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
-      workout = Workout.find_by(params[:id])
-      render json: workout
-    end
-  
-
-  
     def update
-      puts "HITTING UPDATE ENDPOINT"
-      puts params
       workout = find_workout_update
       workout.update(workout_params)
       render json: workout
     end
 
-    def increment_likes 
-      workout = Workout.find_by(id: params[:id])
+    def increment_likes
+      workout = Workout.find(params[:id])
       if workout 
-        workout.update(likes: workout.likes+1)
+        puts params
+        workout.update(likes: params[:likes])
         render json: workout
       else 
         render json: { error: "Workout not found" }, status: :not_found
       end
     end
 
-  
     def destroy
         workout = find_workout
         workout.destroy
