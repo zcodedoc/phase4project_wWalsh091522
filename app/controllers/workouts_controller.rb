@@ -9,7 +9,7 @@ class WorkoutsController < ApplicationController
       workouts = Workout.all.includes(:user).order("created_at ASC")
       puts json: workouts
       puts json: workouts.to_a
-      render json: workouts
+      render json: workouts, include: :comments
     end
     
     def create
@@ -42,6 +42,7 @@ class WorkoutsController < ApplicationController
 
     def destroy
         workout = find_workout
+        puts workout.id
         workout.destroy
         head :no_content
     end
