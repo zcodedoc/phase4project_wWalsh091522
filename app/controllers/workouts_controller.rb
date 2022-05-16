@@ -9,7 +9,7 @@ class WorkoutsController < ApplicationController
       workouts = Workout.all.includes(:user).order("created_at ASC")
       puts json: workouts
       puts json: workouts.to_a
-      render json: workouts, include: :comments
+      render json: workouts
     end
     
     def create
