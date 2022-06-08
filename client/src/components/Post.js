@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Post.css";
 import { Box, Button } from "../styles";
 import Typography from '@mui/material/Typography';
@@ -16,9 +16,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import { useHistory } from "react-router";
 import SendIcon from '@mui/icons-material/Send';
+
 
 const style = {
     position: 'absolute',
@@ -34,11 +33,21 @@ const style = {
     borderRadius: '20px'
   };
 
+  const styles = {
+    position: 'absolute',
+    top: 28,
+    right: 0,
+    left: 0,
+    zIndex: 1,
+    border: '1px solid',
+    p: 1,
+    bgcolor: 'background.paper',
+  };
+
 
 function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout, handleUpdateWorkoutList, getNewComments }) {
   console.log(comments);
     const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
-
     const [formData, setFormData] = useState(workout);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [checked, setChecked] = React.useState(false);
@@ -50,14 +59,13 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
     const [openComment, setOpenComment] = React.useState(false);
     const [comment, setComment] = useState();
     const [errors, setErrors] = useState([]);
-    const [localComments, setLocalComments] = useState();
     const [isLoading, setIsLoading] = useState(false);
-    const history = useHistory();
     const handleModalClose = () => setOpen(false);
     const handleOpen = () => setOpen(true);
     const open2 = Boolean(anchorEl);
+
     var myWorkout = false;
-      if (currentUser?.id === workout.user?.id) {
+      if (currentUser.id === workout.user.id) {
         myWorkout = true;
       }
 
@@ -87,21 +95,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
       setOpenComment(false);
     };
 
-    const styles = {
-      position: 'absolute',
-      top: 28,
-      right: 0,
-      left: 0,
-      zIndex: 1,
-      border: '1px solid',
-      p: 1,
-      bgcolor: 'background.paper',
-    };
- 
-
     function handleUpdateWorkout() {
-      // console.log("HITTING UPDATE Function to patch request")
-      // console.log(formData);
       fetch(`/workouts/${id}`, {
         method: "PATCH",
         headers: {
@@ -111,7 +105,6 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
       })
       .then((res) => {
         if (res.ok) {
-          console.log(res);
           onUpdateWorkout(workout);
         } else {
           res.json().then(console.log)
@@ -120,7 +113,6 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
     }
 
     function handleSubmit(e) {
-      // console.log(currentUser);
       e.preventDefault();
       setIsLoading(true);
       setFormData({
@@ -139,7 +131,6 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
         }),
       }).then((r) => {
         
-        // console.log(r.json())
         setIsLoading(false);
         if (r.ok) {
           getNewComments();
@@ -151,9 +142,6 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
             user_id: currentUser.id,
             workout_id: id,
           }
-          localComments.push(newComment)
-          console.log("HITTING THIS SECTION COMMS")
-          console.log(comments)
         } else {
           r.json().then((err) => setErrors(err.errors));
         }
@@ -162,7 +150,6 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
 
     async function breakoutLikes() {
       setPostLikes((prev) => prev+1);
-      console.log(postLikes)
       return true;
     }
 
@@ -182,7 +169,6 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
       })
       .then((res) => {
         if (res.ok) {
-          console.log(res);
         } 
         else {
           res.json().then(console.log)
@@ -192,9 +178,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
       }
       else {
         let newlikes = postLikes + 1
-        // console.log("HITTING HERE NOW")
         breakoutLikes();
-        // console.log(postLikes + 1)
         setIsLiked(true);
         fetch(`/workouts/${id}/like`, {
             method: "PATCH",
@@ -206,7 +190,6 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
           .then((res) => {
             if (res.ok) {
               console.log(res);
-              
             } else {
               res.json().then(console.log)
             }
@@ -217,10 +200,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
 
 
       function handleChange(e) {
-        console.log("HITTING THIS CHANGE FUNCTION")
-        console.log(e.target);
         let test = e.target;
-        console.log(test.type);
         setFormData({
           ...formData,
           [e.target.id]: e.target.value,
@@ -239,7 +219,9 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
             }
         })
         }
-        // console.log(localComments)
+
+
+
     return (
             <div>
                 <Box style={{display: 'flex', flexDirection: 'row', marginLeft: '10%'}}>
@@ -253,10 +235,15 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                                             style={{objectFit: 'cover', padding: '10px', border: '1px solid white', marginLeft: '30px', minHeight: '60px', maxHeight: '60px', minWidth: '60px', maxWidth: '60px', borderRadius: '50px'}}
                                             src={workout.user.image}
                                           />
+                                           <div style={{display: 'flex', flexDirection: 'column',}}>
                                          <div style={{display: 'flex', flexDirection: 'column',}}>
                                             <Typography style={{marginTop: '15px', fontSize: '18px', fontWeight: '350', textTransform: 'capitalize'}}>{workout.user.name}</Typography>
                                             <Typography style={{marginTop: '0px', fontSize: '16px', fontWeight: '350'}}>@{workout.user.username}</Typography>
+
+                                    
+  </div>
                                         </div>
+               
                             {myWorkout ? (
                                 <>
                                   <Button onClick={handleClick2} style={{height: '40px', marginLeft: '65%', marginTop: '10px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)',}}><MoreHorizIcon/></Button>
@@ -323,7 +310,7 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
 
                             
 
-                            {/* <ClickAwayListener> */}
+                    
                               <Fab onClick={handleClickComment} type="button" variant="extended" style={{backgroundColor: 'white',boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', marginTop: '5px', marginBottom: '20px', marginRight: '30px', height: '40px', padding: '0px', width: '100px'}}>
                               {!isCommentedOn ? ( 
                               <ModeCommentOutlinedIcon/> 
@@ -331,13 +318,12 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                                 <ModeCommentIcon />)}
                                 <Typography style={{marginRight: '0px', marginLeft: '5px', fontSize: '18px'}}>{postComments}</Typography> 
                               </Fab> 
-                            {/* </ClickAwayListener> */}
                             {openComment ? (
                               <Box>
                                 <Typography style={{fontSize: '20px', marginLeft: '20%', marginBottom: '30px'}}>Comments</Typography>
                                     {comments.length > 0 ? (
                                       comments.map((comment) => (
-                                        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'left', marginLeft: '20%', maxWidth: '60%', maxHeight: '80px', borderRadius: '10px', marginBottom: '10px', boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 20%)'}}>
+                                        <div key={comment.id} style={{display: 'flex', flexDirection: 'row', justifyContent: 'left', marginLeft: '20%', maxWidth: '60%', maxHeight: '80px', borderRadius: '10px', marginBottom: '10px', boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 20%)'}}>
                                             <img 
                                                 style={{objectFit: 'cover', padding: '10px', border: '1px solid white',  marginLeft: '30px', minHeight: '50px', maxHeight: '50px', minWidth: '50px', maxWidth: '50px', borderRadius: '50px', marginLeft: '10%'}}
                                                 src={comment.user.image}
@@ -468,7 +454,6 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                                                                       style={{ boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 30%)', padding: '0px', border: '0px solid black', width: '60%', height: '30px', borderRadius: '8px', fontSize: '16px', paddingLeft: '15px', marginLeft: '-30%', marginBottom: '20px'}} 
                                                               type="text"
                                                               id="description"
-                                                              // name="content"
                                                               placeholder={formData.description}
                                                               value={formData.description}
                                                             onChange={handleChange}
@@ -480,7 +465,6 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                                               style={{ boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 30%)', padding: '0px', border: '0px solid black', width: '60%', height: '30px', borderRadius: '8px', fontSize: '16px', paddingLeft: '15px', marginLeft: '-30%', marginBottom: '20px'}} 
                                                             type="text"
                                                             id="image"
-                                                            // name="content"
                                                             placeholder={formData.image}
                                                             value={formData.image}
                                                           onChange={handleChange}
@@ -504,7 +488,6 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                                                         style={{ boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 30%)', padding: '0px', border: '0px solid black', width: '60%', height: '30px', borderRadius: '8px', fontSize: '16px', paddingLeft: '15px', marginLeft: '-30%', marginBottom: '20px'}} 
                                                           type="number"
                                                           id="reps"
-                                                          // name="content"
                                                           placeholder={formData.reps}
                                                           value={formData.reps}
                                                         onChange={handleChange}
@@ -516,7 +499,6 @@ function Post({workout, comments, currentUser,  onUpdateWorkout, onDeleteWorkout
                                                         style={{ boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 30%)', padding: '0px', border: '0px solid black', width: '60%', height: '30px', borderRadius: '8px', fontSize: '16px', paddingLeft: '15px', marginLeft: '-30%', marginBottom: '40px'}} 
                                                           type="number"
                                                           id="weight"
-                                                          // name="content"
                                                           placeholder={formData.weight}
                                                           value={formData.weight}
                                                         onChange={handleChange}

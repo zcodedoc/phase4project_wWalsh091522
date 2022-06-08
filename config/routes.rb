@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :workout_tags
+  resources :tags
   resources :comments
   resources :workouts
   resources :users

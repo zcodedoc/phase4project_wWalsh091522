@@ -80,14 +80,14 @@ function Feed({user, setUser}) {
                 {workouts.length > 0 ? (
                   workouts.map((workout) => (
                       <Post 
-                      key={workout?.id}
+                      key={workout.id}
                       workout={workout}
                       handleUpdateWorkoutList={handleUpdateWorkoutList}
                       onDeleteWorkout={handleDeleteWorkout}
-                      username={user?.username}
-                      userimage={user?.image}
+                      username={user.username}
+                      userimage={user.image}
                       currentUser={user}
-                      comments={getComments(workout?.id)}
+                      comments={getComments(workout.id)}
                       getNewComments={getNewComments}
                       />
                   ))

@@ -7,15 +7,13 @@ class WorkoutsController < ApplicationController
     def index        
       return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
       workouts = Workout.all.includes(:user).order("created_at ASC")
-      puts json: workouts
-      puts json: workouts.to_a
       render json: workouts
     end
     
     def create
       userstuff =  User.find_by(id: session[:user_id])
         workout = Workout.create({user: userstuff, title: workout_params[:title], description: workout_params[:description], image: workout_params[:image], sets: workout_params[:sets], reps: workout_params[:reps], weight: workout_params[:weight],  })
-        puts session[:user_id]
+        
         if workout.valid?
           render json: workout, status: :created
         else
@@ -32,7 +30,6 @@ class WorkoutsController < ApplicationController
     def increment_likes
       workout = Workout.find(params[:id])
       if workout 
-        puts params
         workout.update(likes: params[:likes])
         render json: workout
       else 
@@ -42,7 +39,6 @@ class WorkoutsController < ApplicationController
 
     def destroy
         workout = find_workout
-        puts workout.id
         workout.destroy
         head :no_content
     end
