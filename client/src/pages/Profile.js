@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Post from "../components/Post";
 
 function Profile({user, setUser}) {
   const [workouts, setWorkouts] = useState([]);
@@ -41,7 +42,25 @@ function Profile({user, setUser}) {
                           </Typography>
                         </div>
                       </div>
+                      
                   </div>
+                  <div style={{border: '0px solid black', width: '300px', marginTop: '-50px', marginBottom: '20px', marginLeft: '160px', height: '100%',  padding: '10px', paddingLeft: '0px', borderRadius: '10px'}}>
+                          <Typography style={{fontSize: '24px', marginLeft: '0px', fontWeight: '300', marginTop: '100px'}}>Your Posts
+                      
+                          ({user.workouts.length})
+                          </Typography>
+                         
+                        </div>
+                        {/* <div style={{border: '0px solid black', marginTop: '5px', marginBottom: '20px', width: '70%', marginLeft: '12.5%'}}>
+                          <Divider style={{color: 'black', backgroundColor: 'black', height: '1px'}}/>
+                        </div> */}
+                        
+                        {user.workouts.map((workout) => (
+                          <div>
+                            <img style={{minWidth: '50px', maxWidth: '50px', minHeight: '50px', maxHeight: '50px', objectFit: 'cover'}} src={workout.image}/>
+                            <p>{workout.title}</p>
+                            </div>
+                             ))}
               </div>
           </Wrapper>
       </div>

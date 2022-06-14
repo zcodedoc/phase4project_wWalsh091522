@@ -1,11 +1,16 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import MenuItem from '@mui/material/MenuItem';
 
 function NewWorkouts({ user, setUser }) {
+  const [target, setTarget] = useState(0);
+  const [target2, setTarget2] = useState(0);
   const [title, setTitle] = useState("Title");
   const [description, setDescription] = useState("Title");
   const [image, setImage] = useState("https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80");
@@ -14,7 +19,36 @@ function NewWorkouts({ user, setUser }) {
   const [weight, setWeight] = useState(0);
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [tags, setTags] = useState([]);
+  const [tagOption, setTagOption] = useState('');
+  const [workoutId, setWorkoutId] = useState();
+  const [workouts, setWorkouts] = useState([]);
   const history = useHistory();
+// const workoutId = workouts.length+1;
+
+  const handleChange = (event) => {
+    setTarget(event.target.value);
+    console.log(event.target.value)
+    // console.log(workouts.length+1)
+  };
+
+  const handleChange2 = (event) => {
+    setTarget2(event.target.value);
+    console.log(event.target.value)
+    // console.log(workouts.length+1)
+  };
+
+  useEffect(() => {
+    fetch(`/tags`)
+      .then((r) => r.json())
+      .then(setTags);
+      fetch(`/workouts`)
+      .then((r) => r.json())
+      .then((r) => setWorkoutId(r[r.length - 1].id + 1)
+        );
+    }, []);
+
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -41,7 +75,67 @@ function NewWorkouts({ user, setUser }) {
         r.json().then((err) => setErrors(err.errors));
       }
     });
+    fetch("/workouts/workout_tags", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tag_id: target,
+        workout_id: workoutId,
+        
+      }),
+    }).then((r) => {
+      setIsLoading(false);
+      if (r.ok) {
+        history.push("/");
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
+
+    // fetch("/workout_tags", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     tag_id: target,
+    //     workout_id: 1
+        
+    //   }),
+    // }).then((r) => {
+    //   setIsLoading(false);
+    //   if (r.ok) {
+    //     history.push("/");
+    //   } else {
+    //     r.json().then((err) => setErrors(err.errors));
+    //   }
+    // });
   }
+
+  // function handleSubmit2(e) {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   fetch("/workout_tags", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       workout_id={workout.id},
+  //       tag_id={target.id}
+        
+  //     }),
+  //   }).then((r) => {
+  //     setIsLoading(false);
+  //     if (r.ok) {
+  //       history.push("/");
+  //     } else {
+  //       r.json().then((err) => setErrors(err.errors));
+  //     }
+  //   });
+  // }
 
   return (
         <div>
@@ -71,6 +165,61 @@ function NewWorkouts({ user, setUser }) {
                     <div style={{marginLeft: '0px', marginTop: '0px',  boxShadow:' 0 0.055em 0.225em rgb(20 20 20 / 25%)', padding: '20px', width: '90%', height: '90%', paddingLeft: '30px'}}>
                         <h2 style={{width: '50%', marginLeft: '12%', marginTop: '30px'}}>Create Workout</h2>
                         <form onSubmit={handleSubmit}>
+                        <FormField style={{ width: '50%',  marginTop: '25px', marginLeft: '12%'}}>
+                                <Label  style={{paddingBottom: '10px'}} htmlFor="title">Target(primary)</Label>
+                                <TextField
+        style={{padding: '10px', width: '300px'}}
+          id="outlined-basic"
+          select
+          // label="Select Hour"
+          value={target}
+          onChange={handleChange}
+          // helperText="Please select the hour"
+        >
+            {tags.map((tag) => (
+            <MenuItem style={{display: 'flex', flexDirection: 'column', margin: '5px', height: '40px'}} key={tag.name} value={tag.id}>
+              {tag.name}
+            </MenuItem>
+          ))}
+        </TextField>
+                               
+                               
+                                {/* <Input
+                                style={{padding: '10px'}}
+                                  type="text"
+                                  id="target"
+                                  value={target}
+                                  onChange={(e) => setTitle(e.target.value)}
+                                /> */}
+                            </FormField>
+                            {/* <FormField style={{ width: '50%',  marginTop: '25px', marginLeft: '12%'}}>
+                                <Label  style={{paddingBottom: '10px'}} htmlFor="title">Target(secondary)</Label>
+                                <TextField
+        style={{padding: '10px', width: '300px'}}
+          id="outlined-basic"
+          select
+          // label="Select Hour"
+          value={target2}
+          onChange={handleChange2}
+          // helperText="Please select the hour"
+        >
+            {tags.map((tag) => (
+            <MenuItem style={{display: 'flex', flexDirection: 'column', margin: '5px', height: '40px'}} key={tag.name} value={tag.id}>
+              {tag.name}
+            </MenuItem>
+          ))}
+        </TextField> */}
+                               
+                               
+                                {/* <Input
+                                style={{padding: '10px'}}
+                                  type="text"
+                                  id="target"
+                                  value={target}
+                                  onChange={(e) => setTitle(e.target.value)}
+                                /> */}
+                            {/* </FormField> */}
+                   
                             <FormField style={{ width: '50%',  marginTop: '25px', marginLeft: '12%'}}>
                                 <Label  style={{paddingBottom: '10px'}} htmlFor="title">Title</Label>
                                 <Input
@@ -132,7 +281,7 @@ function NewWorkouts({ user, setUser }) {
                                 />
                             </FormField>
                             <FormField style={{ width: '60%',  marginTop: '40px', marginLeft: '12%'}}>
-                                <Button color="primary" type="submit">
+                                <Button color="primary" >
                                 {isLoading ? "Loading..." : "Create Workout"}
                                 </Button>
                             </FormField>

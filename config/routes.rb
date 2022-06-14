@@ -6,10 +6,13 @@ Rails.application.routes.draw do
   resources :users
   get "/me", to: "users#show"
   patch "/workouts/:id", to: "workouts#update"
+  # patch "/workout/tags/:id", to: "tags#update"
+  patch "/workout/workout_tags/:id", to: "workout_tags#update"
   delete "/workouts/:id", to: "workouts#destroy"
   patch "/workouts/:id/like", to: "workouts#increment_likes"
   post "/signup", to: "users#create"
   post "/workouts", to: "workouts#create"
+  post "/workouts/workout_tags", to: "workout_tags#create"
   get "/workouts", to: "workouts#index"
   get "/workouts/:id", to: "workouts#show"
   post "/comments", to: "comments#create"

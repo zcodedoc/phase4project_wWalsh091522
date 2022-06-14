@@ -9,9 +9,11 @@ import Post from "../components/Post";
 
 function Feed({user, setUser}) {
   const [workouts, setWorkouts] = useState([]);
+  const [workoutTags, setWorkoutTags] = useState('');
   const [comments, setComments] = useState([]);
   const [spacing, setSpacing] = React.useState(2);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  
   const open2 = Boolean(anchorEl);
 
   function handleUpdateWorkoutList(updatedWorkout) {
@@ -47,6 +49,15 @@ function Feed({user, setUser}) {
     })
     return currComments;
   }
+  const getTags = (workout_id) => {
+    let workout_tag;
+    workoutTags.map(tag => {
+      if (tag.workout_id === workout_id) {
+        workout_tag = tag;
+      }
+    })
+    return workout_tag;
+  }
   const getNewComments = () => {
     fetch("/comments")
     .then((r) => r.json())
@@ -63,8 +74,12 @@ function Feed({user, setUser}) {
       fetch("/me")
       .then((r) => r.json())
       .then(setUser);
+      fetch("/workout_tags")
+      .then((r) => r.json())
+      .then(setWorkoutTags);
 
   }, []);
+  // console.log(workouts)
 
   return (
       <div style={{width: '100%', display: 'flex'}}>
@@ -78,6 +93,7 @@ function Feed({user, setUser}) {
               </div>
 
                 {workouts.length > 0 ? (
+                  
                   workouts.map((workout) => (
                       <Post 
                       key={workout.id}
@@ -89,6 +105,7 @@ function Feed({user, setUser}) {
                       currentUser={user}
                       comments={getComments(workout.id)}
                       getNewComments={getNewComments}
+                      workout_tag={getTags(workout.id)}
                       />
                   ))
                      ) : (

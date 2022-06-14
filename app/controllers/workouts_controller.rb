@@ -10,6 +10,15 @@ class WorkoutsController < ApplicationController
       render json: workouts
     end
     
+    def show
+      workout = Workout.find_by(id: params[:id])
+      if workout
+        render json: workout
+      else
+        render json: { error: "Workout not found" }, status: :not_found
+      end
+  end
+
     def create
       userstuff =  User.find_by(id: session[:user_id])
         workout = Workout.create({user: userstuff, title: workout_params[:title], description: workout_params[:description], image: workout_params[:image], sets: workout_params[:sets], reps: workout_params[:reps], weight: workout_params[:weight],  })
@@ -23,7 +32,7 @@ class WorkoutsController < ApplicationController
 
     def update
       workout = find_workout_update
-      workout.update(workout_params)
+      workout.update!(workout_params)
       render json: workout
     end
 

@@ -15,17 +15,46 @@
   .topbarLeft {
     flex: 3;
   }
+
+  .topbarCenter {
+    flex: 1;
+    display: flex;
+    align-items: left;
+    /* justify-content: space-between; */
+    text-align: left;
+    margin-right: 300px;
+    margin-top: 10px;
+    max-width: 20%;
+    /* border: 1px solid black; */
+  }
   
   .logo {
     font-size: 24px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin-left: 20px;
     font-weight: bold;
     color: #1877f2;
     cursor: pointer;
     height: 50px;
+    margin-left: 80px;
+    font-weight: 600;
+    font-size: 20px;
   }
-  
+
+  .newpostbox {
+    height: 90%;
+     margin-right: 25%;
+    text-decoration: none;
+ 
+   }
+  .newpostbutton {
+      color: white; 
+      background-color: #1877f2;
+      box-shadow: 0 0.055em 0.225em rgb(20 20 20 / 25%);
+      height: 90%;
+      height: 80%; 
+      margin-top: 5px;
+   }
+
   .topbarRight {
     flex: 4;
     display: flex;
@@ -46,8 +75,32 @@
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
+    border: 0.1px solid white;
+    margin-left: 20px;
+    margin-right: 60px; 
+    min-width: 30px; 
+    min-height: 30px
   }
 
+  /* .topbarDropdown {
+    margin-top: 5px; 
+    margin-right: 10px;
+    margin-left: 0px;
+    padding: 0px;
+    padding-left: -5%; 
+    width: 140px;
+    height: 120px;
+  } */
+/* .topbarProfileButton {
+  box-shadow: 0 0.055em 0.225em rgb(20 20 20 / 0%);
+   padding: 4px;
+   height: 40px; 
+   margin-top: 5%;
+   margin-bottom: 10%; 
+   margin-left: 5%;
+   border-radius: 0px;
+   width: 85%;
+  } */
   .link {
     text-decoration: none;
   }
@@ -83,4 +136,3 @@
         position: absolute;
       }
     
-  
