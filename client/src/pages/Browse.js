@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles";
-// import Paper from '@mui/material/Paper';
 import Post from "../components/Post";
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
-// import DeleteIcon from '@mui/icons-material/Delete';
 import FitnessCenterOutlinedIcon from '@mui/icons-material/FitnessCenterOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -15,7 +13,6 @@ function Browse({user, setUser}) {
     const [workoutTags, setWorkoutTags] = useState('');
     const [tags, setTags] = useState([]);
     const [comments, setComments] = useState([]);
-    // const [spacing, setSpacing] = React.useState(2);
     const [anchorEl, setAnchorEl] = React.useState(null);
   
     const open2 = Boolean(anchorEl);

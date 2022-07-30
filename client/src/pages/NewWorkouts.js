@@ -5,7 +5,6 @@ import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 
 function NewWorkouts({ user, setUser }) {
@@ -24,18 +23,15 @@ function NewWorkouts({ user, setUser }) {
   const [workoutId, setWorkoutId] = useState();
   const [workouts, setWorkouts] = useState([]);
   const history = useHistory();
-// const workoutId = workouts.length+1;
 
   const handleChange = (event) => {
     setTarget(event.target.value);
     console.log(event.target.value)
-    // console.log(workouts.length+1)
   };
 
   const handleChange2 = (event) => {
     setTarget2(event.target.value);
     console.log(event.target.value)
-    // console.log(workouts.length+1)
   };
 
   useEffect(() => {
@@ -81,13 +77,11 @@ function NewWorkouts({ user, setUser }) {
         console.log(r);
         console.log("R IS HERE");
          createWorkoutTag();
-        // history.push("/");
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
     }).then(() => {
       console.log("HITTING HERE")
-      // createWorkoutTag();
     });
   }
 
@@ -141,33 +135,6 @@ function NewWorkouts({ user, setUser }) {
                     <div style={{marginLeft: '0px', marginTop: '0px',  boxShadow:' 0 0.055em 0.225em rgb(20 20 20 / 25%)', padding: '20px', width: '90%', height: '90%', paddingLeft: '30px'}}>
                         <h2 style={{width: '50%', marginLeft: '12%', marginTop: '30px'}}>Create Workout</h2>
                         <form onSubmit={handleSubmit}>
-                     
-                            {/* <FormField style={{ width: '50%',  marginTop: '25px', marginLeft: '12%'}}>
-                                <Label  style={{paddingBottom: '10px'}} htmlFor="title">Target(secondary)</Label>
-                                <TextField
-                                  style={{padding: '10px', width: '300px'}}
-                                    id="outlined-basic"
-                                    select
-                                    // label="Select Hour"
-                                    value={target2}
-                                    onChange={handleChange2}
-                                    // helperText="Please select the hour"
-                                  >
-                                  {tags.map((tag) => (
-                                  <MenuItem style={{display: 'flex', flexDirection: 'column', margin: '5px', height: '40px'}} key={tag.name} value={tag.id}>
-                                    {tag.name}
-                                  </MenuItem>
-                                ))}
-                              </TextField> */}
-                           {/* <Input
-                                style={{padding: '10px'}}
-                                  type="text"
-                                  id="target"
-                                  value={target}
-                                  onChange={(e) => setTitle(e.target.value)}
-                                /> */}
-                            {/* </FormField> */}
-                   
                             <FormField style={{ width: '50%',  marginTop: '25px', marginLeft: '12%'}}>
                                 <Label  style={{paddingBottom: '10px'}} htmlFor="title">Title</Label>
                                 <Input

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles";
-import Paper from '@mui/material/Paper';
 import Post from "../components/Post";
 
 
@@ -45,15 +44,6 @@ function Feed({user, setUser}) {
     });
     setWorkouts(updatedCommentsArray);
   }
-
- 
-//   const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
 
   const handleChange = (event) => {
     setSpacing(Number(event.target.value));

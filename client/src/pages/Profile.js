@@ -29,30 +29,9 @@ function Profile({user, setUser}) {
     );
   }
  
-//   const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
-
-  // const handleChange = (event) => {
-  //   setSpacing(Number(event.target.value));
-  // };
-  // const getComments = (workout_id) => {
-  //   let currComments = []
-  //   comments.map(comment => {
-  //     if (comment.workout_id === workout_id) {
-  //       currComments.push(comment);
-  //     }
-  //   })
-  //   return currComments;
-  // }
   const getTags = (workout_id) => {
     let workout_tag;
     console.log(workoutTags);
-    // return;
     workoutTags.map(tag => {
       if (tag.workout_id === workout_id) {
         workout_tag = tag;
@@ -65,13 +44,6 @@ function Profile({user, setUser}) {
     .then((r) => r.json())
     .then(setComments);
   }
-//   const setMyWorkouts = (workouts) => {
-//     let myworkouts = []
-//     workouts.map(workout => {
-// if (workou)
-//     })
-
-//   }
 
   const getComments = (workout_id) => {
     let currComments = []
@@ -135,7 +107,6 @@ function Profile({user, setUser}) {
 const Wrapper = styled.section`
   min-width: 100%;
   margin-right: 0%;
-  // margin: 10px auto;
   box-shadow: 0 0.055em 0.225em rgb(20 20 20 / 15%);
 `;
 
