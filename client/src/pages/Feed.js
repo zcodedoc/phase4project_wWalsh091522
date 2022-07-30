@@ -17,7 +17,11 @@ function Feed({user, setUser}) {
   const open2 = Boolean(anchorEl);
 
   function handleUpdateWorkoutList(updatedWorkout) {
+    console.log(updatedWorkout)
     const updatedWorkoutsArray = workouts?.map((workout) => {
+      if (workout.id === updatedWorkout.id) {
+        console.log("THE SAME ID@!!")
+      }
       return workout.id === updatedWorkout.id ? updatedWorkout : workout;
     });
     setWorkouts(updatedWorkoutsArray);
@@ -28,18 +32,33 @@ function Feed({user, setUser}) {
       workouts.filter((workout) => workout.id !== deletedWorkout.id)
     );
   }
+
+  function handleDeleteComment(deletedComment) {
+    setComments((comments) =>
+      comments.filter((comment) => comment.id !== deletedComment.id)
+    );
+  }
+
+  function handleUpdateCommentList(updatedComment) {
+    const updatedCommentsArray = comments?.map((comment) => {
+      return comment.id === updatedComment.id ? updatedComment : comment;
+    });
+    setWorkouts(updatedCommentsArray);
+  }
+
  
-  const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+//   const Item = styled(Paper)(({ theme }) => ({
+//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+//   ...theme.typography.body2,
+//   padding: theme.spacing(1),
+//   textAlign: 'center',
+//   color: theme.palette.text.secondary,
+// }));
 
   const handleChange = (event) => {
     setSpacing(Number(event.target.value));
   };
+
   const getComments = (workout_id) => {
     let currComments = []
     comments.map(comment => {
@@ -49,6 +68,7 @@ function Feed({user, setUser}) {
     })
     return currComments;
   }
+
   const getTags = (workout_id) => {
     let workout_tag;
     workoutTags.map(tag => {
@@ -58,6 +78,7 @@ function Feed({user, setUser}) {
     })
     return workout_tag;
   }
+
   const getNewComments = () => {
     fetch("/comments")
     .then((r) => r.json())
@@ -65,7 +86,7 @@ function Feed({user, setUser}) {
   }
   
   useEffect(() => {
-    fetch("/workouts")
+      fetch("/workouts")
       .then((r) => r.json())
       .then(setWorkouts);
       fetch("/comments")
@@ -79,47 +100,44 @@ function Feed({user, setUser}) {
       .then(setWorkoutTags);
 
   }, []);
-  // console.log(workouts)
+  console.log(workouts)
 
   return (
       <div style={{width: '100%', display: 'flex'}}>
-          <div style={{minWidth: '10%', maxWidth: '10%', marginTop: '0%'}}>
-  
+        <div style={{minWidth: '10%', maxWidth: '10%', marginTop: '0%'}}>
+        </div>
+        <Wrapper>
+          <div style={{width: '80%', marginLeft: '7.5%', marginTop: '0%', border: '0px solid black'}}>
+            <h2 style={{marginLeft: '32.5%', width: '50%',  paddingLeft: '0px',  marginTop: '2.5%', marginBottom: '2.5%', padding: '10px', border: '0px solid black'}}>Feed</h2>
           </div>
-
-          <Wrapper>
-              <div style={{width: '80%', marginLeft: '7.5%', marginTop: '0%', border: '0px solid black'}}>
-                  <h2 style={{marginLeft: '32.5%', width: '50%',  paddingLeft: '0px',  marginTop: '2.5%', marginBottom: '2.5%', padding: '10px', border: '0px solid black'}}>Feed</h2>
-              </div>
-
                 {workouts.length > 0 ? (
-                  
                   workouts.map((workout) => (
-                      <Post 
-                      key={workout.id}
-                      workout={workout}
-                      handleUpdateWorkoutList={handleUpdateWorkoutList}
-                      onDeleteWorkout={handleDeleteWorkout}
-                      username={user.username}
-                      userimage={user.image}
-                      currentUser={user}
-                      comments={getComments(workout.id)}
-                      getNewComments={getNewComments}
-                      workout_tag={getTags(workout.id)}
-                      />
+                    <Post 
+                        key={workout.id}
+                        workout={workout}
+                        handleUpdateWorkoutList={handleUpdateWorkoutList}
+                        onDeleteWorkout={handleDeleteWorkout}
+                        handleUpdateCommentList={handleUpdateCommentList}
+                        onDeleteComment={handleDeleteComment}
+                        username={user.username}
+                        userimage={user.image}
+                        currentUser={user}
+                        comments={getComments(workout.id)}
+                        getNewComments={getNewComments}
+                        workout_tag={getTags(workout.id)}
+                    />
                   ))
-                     ) : (
-                      <>
-                      <div style={{height: '400px', width: '100%', padding: '10%'}}>
-                        <h2 style={{fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>No Workouts Logged</h2>
-                        <Button as={Link} to="/newworkout">
-                          Make a New Post
-                        </Button>
-                      </div>
-                      </>
+                ) : (
+                  <>
+                    <div style={{height: '400px', width: '100%', padding: '10%'}}>
+                      <h2 style={{fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>No Workouts Logged</h2>
+                      <Button as={Link} to="/newworkout">
+                        Make a New Post
+                      </Button>
+                    </div>
+                  </>
                 )}
-          </Wrapper>
-    
+        </Wrapper>
       </div>
   );
 }

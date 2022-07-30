@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import NavBar from './NavBar';
 import Login from '../pages/Login';
 import Feed from '../pages/Feed';
+import Browse from '../pages/Browse';
 import Tags from '../pages/Tags';
 import Profile from '../pages/Profile';
 import NewWorkouts from '../pages/NewWorkouts';
@@ -30,11 +31,11 @@ function App() {
     <NavBar user={user} setUser={setUser}/>
     <main style={{fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>
       <Switch>
-      <Route path='/tags'>
+          <Route path='/tags'>
             <Tags user={user} setUser={setUser}/>
           </Route>
-          <Route path='/tags/1'>
-            <Tags user={user} setUser={setUser}/>
+          <Route path='/browse/:id'>
+            <Browse user={user} setUser={setUser}/>
           </Route>
           <Route path='/newworkout'>
             <NewWorkouts user={user} setUser={setUser}/>
@@ -44,8 +45,7 @@ function App() {
           </Route>
           <Route path='/'>
             <Feed user={user} setUser={setUser}/>
-          </Route>
-        
+          </Route> 
       </Switch>
     </main>
     </>

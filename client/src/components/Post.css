@@ -2,7 +2,6 @@
     display: flex;
     align-items: flex-start;
     border-bottom: 1px solid var(--twitter-background);
-    /* padding-bottom: 10px; */
   }
   
   .post__body {
