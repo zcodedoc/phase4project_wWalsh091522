@@ -36,7 +36,7 @@ const style = {
     borderRadius: '20px'
   };
 
-function Post({workout,  comments, currentUser,  onUpdateWorkout, onDeleteWorkout, handleUpdateWorkoutList, onDeleteComment, handleUpdateCommentList, getNewComments, workout_tag }) {
+function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWorkoutList, onDeleteComment, getNewComments, workout_tag }) {
     const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
     const [workoutState, setWorkoutState] = useState(workout);
     const [workouts, setWorkouts] = useState([]);

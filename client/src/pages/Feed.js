@@ -10,7 +10,6 @@ function Feed({user, setUser}) {
   const [workouts, setWorkouts] = useState([]);
   const [workoutTags, setWorkoutTags] = useState('');
   const [comments, setComments] = useState([]);
-  const [spacing, setSpacing] = React.useState(2);
   const [anchorEl, setAnchorEl] = React.useState(null);
   
   const open2 = Boolean(anchorEl);
@@ -42,10 +41,6 @@ function Feed({user, setUser}) {
     });
     setWorkouts(updatedCommentsArray);
   }
-
-  const handleChange = (event) => {
-    setSpacing(Number(event.target.value));
-  };
 
   const getComments = (workout_id) => {
     let currComments = []

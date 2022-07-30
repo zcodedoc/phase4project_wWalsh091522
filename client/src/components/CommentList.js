@@ -18,7 +18,7 @@ import SendIcon from '@mui/icons-material/Send';
     bgcolor: 'background.paper',
   };
 
-function CommentList({workout,  comments, currentUser, onDeleteComment, handleUpdateCommentList, getNewComments, workout_tag, handleUpdateCommCount }) {
+function CommentList({workout,  comments, currentUser, onDeleteComment, getNewComments, handleUpdateCommCount }) {
     const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorEl2, setAnchorEl2] = React.useState(null);
@@ -47,6 +47,7 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, handleUp
     const handleClose3 = () => {
       setAnchorEl(null);
       setOpen3(false);
+
     };
 
     function handleOpenModal2() {
@@ -99,9 +100,6 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, handleUp
             method: "DELETE",
         }).then((res) => {
             if (res.ok) {
-            console.log(res);
-            console.log(comment);
-            
             onDeleteComment(comment);
             deleteLocalComment(comment);
             handleClose3();
@@ -126,7 +124,6 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, handleUp
                             <Typography style={{ boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 0%)', padding: '0px', border: '0px solid black', minWidth: '200px', height: '20px', marginTop: '25px', borderRadius: '8px', fontSize: '14px', paddingLeft: '5px', marginLeft: '2.5%', marginRight: '10%', marginBottom: '-5px'}} >@{comment.user.username}</Typography>
                             <Typography style={{ boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 0%)', padding: '10px', border: '0px solid black', minWidth: '200px', height: '20px', marginTop: '0px', borderRadius: '8px', fontSize: '16px', paddingLeft: '15px', marginLeft: '2.5%', marginRight: '10%', marginBottom: '20px'}} >{comment.comment}</Typography>
                           </div>
-                          {/* {myComment ? (  */}
                           <>
                             <Button onClick={handleClick3} style={{height: '40px', width: '50px', border: '0px solid black', marginLeft: '0%', marginTop: '10px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)',}}><MoreHorizIcon/></Button>
                                 <Menu
@@ -146,9 +143,6 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, handleUp
                                   </div>
                                 </Menu>
                           </> 
-                          {/*
-                          ) : (null)}
-                          */}
                         </div>
                       ))
                   ) : (null)}
@@ -174,6 +168,7 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, handleUp
                 </Box>
             </Box>
           </div>
+        
     );
   }        
 export default CommentList;
