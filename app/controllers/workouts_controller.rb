@@ -47,9 +47,9 @@ class WorkoutsController < ApplicationController
     end
 
     def destroy
-        workout = find_workout
-        workout.destroy
-        head :no_content
+      workout = find_workout
+      workout.destroy
+      head :no_content
     end
         
     private
@@ -59,7 +59,7 @@ class WorkoutsController < ApplicationController
     end
 
      def find_workout_update
-        Workout.find(params[:id])
+      Workout.find(params[:id])
      end
 
      def workout_params
@@ -67,12 +67,12 @@ class WorkoutsController < ApplicationController
      end
   
     def authorize
-        puts session[:workout_id]
-        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
-      end
+      puts session[:workout_id]
+      return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+    end
       
     def record_not_found
-        render json: { error: "Workout not found" }, status: :not_found
+      render json: { error: "Workout not found" }, status: :not_found
     end
   
 end

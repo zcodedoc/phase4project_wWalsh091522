@@ -4,15 +4,15 @@ class UsersController < ApplicationController
 	rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
   
     def index
-        users = User.all
-        render json: users
+      users = User.all
+      render json: users
     end
     
     def create
       user = User.create!(user_params)
       # if user.valid?
-        session[:user_id] = user.id
-        render json: user, status: :created
+      session[:user_id] = user.id
+      render json: user, status: :created
       # else
       #   render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
       # end
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     
         
     def find_user
-        User.find(params[:id])
+      User.find(params[:id])
     end
         
 
