@@ -3,7 +3,6 @@ import { Switch, Route } from "react-router-dom";
 import NavBar from './NavBar';
 import Login from '../pages/Login';
 import Feed from '../pages/Feed';
-import Browse from '../pages/Browse';
 import Tags from '../pages/Tags';
 import Profile from '../pages/Profile';
 import NewWorkouts from '../pages/NewWorkouts';
@@ -33,9 +32,6 @@ function App() {
       <Switch>
           <Route path='/tags'>
             <Tags user={user} setUser={setUser}/>
-          </Route>
-          <Route path='/browse/:id'>
-            <Browse user={user} setUser={setUser}/>
           </Route>
           <Route path='/newworkout'>
             <NewWorkouts user={user} setUser={setUser}/>

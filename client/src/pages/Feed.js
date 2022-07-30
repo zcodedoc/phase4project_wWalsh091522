@@ -16,10 +16,8 @@ function Feed({user, setUser}) {
   const open2 = Boolean(anchorEl);
 
   function handleUpdateWorkoutList(updatedWorkout) {
-    console.log(updatedWorkout)
     const updatedWorkoutsArray = workouts?.map((workout) => {
       if (workout.id === updatedWorkout.id) {
-        console.log("THE SAME ID@!!")
       }
       return workout.id === updatedWorkout.id ? updatedWorkout : workout;
     });
@@ -90,7 +88,6 @@ function Feed({user, setUser}) {
       .then(setWorkoutTags);
 
   }, []);
-  console.log(workouts)
 
   return (
       <div style={{width: '100%', display: 'flex'}}>

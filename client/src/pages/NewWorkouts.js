@@ -26,12 +26,6 @@ function NewWorkouts({ user, setUser }) {
 
   const handleChange = (event) => {
     setTarget(event.target.value);
-    console.log(event.target.value)
-  };
-
-  const handleChange2 = (event) => {
-    setTarget2(event.target.value);
-    console.log(event.target.value)
   };
 
   useEffect(() => {
@@ -44,16 +38,11 @@ function NewWorkouts({ user, setUser }) {
         );
     }, []);
 
-
-
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
     createWorkout();
     createWorkoutTag();
-    
-
-
   }
 
   function createWorkout() {
@@ -69,13 +58,10 @@ function NewWorkouts({ user, setUser }) {
         sets,
         reps,
         weight
-        
       }),
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        console.log(r);
-        console.log("R IS HERE");
          createWorkoutTag();
       } else {
         r.json().then((err) => setErrors(err.errors));
@@ -104,8 +90,6 @@ function NewWorkouts({ user, setUser }) {
       }
     });
   }
-
-
 
   return (
         <div>
@@ -201,10 +185,8 @@ function NewWorkouts({ user, setUser }) {
                                   style={{padding: '10px', width: '300px'}}
                                   id="outlined-basic"
                                   select
-                                  // label="Select Hour"
                                   value={target}
                                   onChange={handleChange}
-                                  // helperText="Please select the hour"
                                 >
                                 {tags.map((tag) => (
                                 <MenuItem style={{display: 'flex', flexDirection: 'column', margin: '5px', height: '40px'}} key={tag.name} value={tag.id}>

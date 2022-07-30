@@ -2,36 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import Post from "../components/Post";
-import { Button } from "../styles";
-import Paper from '@mui/material/Paper';
-import Fab from '@mui/material/Fab';
+
 
 function Profile({user, setUser}) {
   const [workouts, setWorkouts] = useState([]);
   const [workoutTags, setWorkoutTags] = useState('');
   const [comments, setComments] = useState([]);
-  const [spacing, setSpacing] = React.useState(2);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const open2 = Boolean(anchorEl);
-
-  function handleUpdateWorkoutList(updatedWorkout) {
-    const updatedWorkoutsArray = workouts?.map((workout) => {
-      return workout.id === updatedWorkout.id ? updatedWorkout : workout;
-    });
-    setWorkouts(updatedWorkoutsArray);
-  }
-  function handleDeleteWorkout(deletedWorkout) {
-    setWorkouts((workouts) =>
-      workouts.filter((workout) => workout.id !== deletedWorkout.id)
-    );
-  }
  
   const getTags = (workout_id) => {
     let workout_tag;
-    console.log(workoutTags);
     workoutTags.map(tag => {
       if (tag.workout_id === workout_id) {
         workout_tag = tag;
@@ -39,22 +21,8 @@ function Profile({user, setUser}) {
     })
     return workout_tag;
   }
-  const getNewComments = () => {
-    fetch("/comments")
-    .then((r) => r.json())
-    .then(setComments);
-  }
 
-  const getComments = (workout_id) => {
-    let currComments = []
-    comments.map(comment => {
-      if (comment.workout_id === workout_id) {
-        currComments.push(comment);
-      }
-    })
-    return currComments;
-  }
-  
+
   useEffect(() => {
     fetch("/workouts/")
       .then((r) => r.json())
@@ -68,8 +36,6 @@ function Profile({user, setUser}) {
       fetch("/me")
       .then((r) => r.json())
       .then(setUser);
-      
-
   }, []);
   
 
@@ -87,7 +53,6 @@ function Profile({user, setUser}) {
               <div style={{display: 'flex', flexDirection: 'column', marginLeft: '-300px', marginTop: '0px'}}>
                 <div style={{display: 'flex', flexDirection: 'row', marginLeft: '0px', marginTop: '0px'}}>
                   <p style={{ width: '500px', marginLeft: '150px', marginTop: '10px', fontSize: '24px', textTransform: 'capitalize' }}>{user.name}</p>
-                  {/* <Fab style={{backgroundColor: 'white', minWidth: '120px', boxShadow:' 0 0.055em 0.225em rgb(20 20 20 / 35%)', marginTop: '10px'}} variant="extended"><Typography style={{fontSize: '12px'}}>Edit Profile</Typography></Fab> */}
                 </div>
                 <p style={{marginLeft: '150px', marginTop: '-15px', fontSize: '16px'}}>@{user.username}</p>
                 <div style={{width: '300px', marginTop: '-20px', marginBottom: '20px', marginLeft: '160px', height: '100%',  padding: '10px', paddingLeft: '0px', borderRadius: '10px'}}>

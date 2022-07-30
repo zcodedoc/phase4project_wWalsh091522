@@ -29,18 +29,6 @@ function Browse({user, setUser}) {
         workouts.filter((workout) => workout.id !== deletedWorkout.id)
       );
     }
- 
-    // const Item = styled(Paper)(({ theme }) => ({
-    //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    //   ...theme.typography.body2,
-    //   padding: theme.spacing(1),
-    //   textAlign: 'center',
-    //   color: theme.palette.text.secondary,
-    // }));
-
-    // const handleChange = (event) => {
-    //   setSpacing(Number(event.target.value));
-    // };
 
     const getComments = (workout_id) => {
       let currComments = []
@@ -67,10 +55,6 @@ function Browse({user, setUser}) {
       .then((r) => r.json())
       .then(setComments);
     }
-
-    const handleClick = (tag) => {
-      console.info('You clicked the Chip.'+{tag});
-    };
   
     useEffect(() => {
       fetch("/workouts")

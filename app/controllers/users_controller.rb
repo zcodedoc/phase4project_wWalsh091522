@@ -33,12 +33,10 @@ class UsersController < ApplicationController
       render json:{error: invalid.record.errors}, status: :unprocessable_entity
     end 
     
-        
     def find_user
       User.find(params[:id])
     end
-        
-
+    
     def user_params
       params.permit( :username, :password, :password_confirmation, :name, :bio, :header, :image)
     end    

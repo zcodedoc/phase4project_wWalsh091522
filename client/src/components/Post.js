@@ -104,32 +104,6 @@ function Post({workout,  comments, currentUser,  onUpdateWorkout, onDeleteWorkou
       setPostComments(postComments + comment_count)
     }
 
-    // const handleDeleteTag = (event, index) => {
-    //   event.preventDefault();
-    //   let delTags = workoutState.tags;
-    //   const newTags = delTags.splice(index, 1);
-    //   setWorkoutState({
-    //     ...workoutState,
-    //     tags: delTags
-    //   });
-      
-    // };
-    // const handleAddTag = (e) => {
-    //   e.preventDefault();
-    //   console.info('You clicked the Add icon.');
-    //   let newTag = {
-    //     image: "",
-    //     id: tags[0].id,
-    //     name: tags[0].name
-    //   }
-    //   let addTags = workoutState.tags;
-    //   addTags.push(newTag);
-    //   setWorkoutState({
-    //     ...workoutState,
-    //     tags: addTags
-    //   });
-    // };
-
     function handleUpdateWorkout(e) {
       e.preventDefault();
       fetch(`/workouts/${id}`, {
@@ -156,7 +130,6 @@ function Post({workout,  comments, currentUser,  onUpdateWorkout, onDeleteWorkou
           workout_id: id
         }),
       }).then((r) => {
-        console.log(r)
         if (r.ok) {
           history.push("/");
         } else {
@@ -222,7 +195,6 @@ function Post({workout,  comments, currentUser,  onUpdateWorkout, onDeleteWorkou
       })
       .then((res) => {
         if (res.ok) {
-          console.log(res);
           onDeleteWorkout(workout);
         } else {
           res.json().then(console.log)
@@ -230,15 +202,12 @@ function Post({workout,  comments, currentUser,  onUpdateWorkout, onDeleteWorkou
       })
     }
     function handleTagUpdate(newTags){
-      console.log(newTags);
       let slimTags = []
       newTags.map((tag) => {
         let upTag = tag.tag
         slimTags.push(upTag);
 
       })
-      console.log(slimTags);
-
       setWorkoutTags(slimTags)
     }
 

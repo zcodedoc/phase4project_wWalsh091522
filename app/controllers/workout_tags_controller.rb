@@ -1,7 +1,6 @@
 class WorkoutTagsController < ApplicationController
   wrap_parameters format: []
   
-
     def index
       workouttags = WorkoutTag.all
       render json: workouttags
@@ -18,7 +17,6 @@ class WorkoutTagsController < ApplicationController
 
     def create
       workouttag = WorkoutTag.create(workout_id: params[:workout_id], tag_id: params[:tag_id])
-
       # if workouttag.valid?
         render json: workouttag, status: :created
       # else
@@ -27,7 +25,6 @@ class WorkoutTagsController < ApplicationController
     end
 
     def update
-      # byebug
       workouttag = WorkoutTag.find_by(id: params[:id])
       workouttag.update!(workouttag_params)
       render json: workouttag

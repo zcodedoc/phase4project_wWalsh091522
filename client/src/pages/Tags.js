@@ -25,7 +25,7 @@ return (
         <div style={{width: '100%', display: 'flex'}}>
             <Wrapper>
                 <div style={{width: '100%', marginLeft: '0%', marginTop: '0%', border: '0px solid black'}}>
-                    <h2 style={{marginLeft: '10%', width: '50%',  paddingLeft: '0px',  marginTop: '2.5%', marginBottom: '5%', padding: '10px', border: '0px solid black'}}>Browse By Target</h2>
+                    <h2 style={{marginLeft: '10%', width: '50%',  paddingLeft: '0px',  marginTop: '2.5%', marginBottom: '5%', padding: '10px', border: '0px solid black'}}>Browse By Target Muscle Group</h2>
                 </div>
                 <Tag user={user} setUser={setUser} />
             </Wrapper>
