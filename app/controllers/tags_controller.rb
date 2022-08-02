@@ -13,11 +13,11 @@ class TagsController < ApplicationController
       end
     end
 
-    def update
-      tag = Tag.find_by(id: params[:id])
-      tag.update!(tag_params)
-      render json: tag
-    end
+    # def update
+    #   tag = Tag.find_by(id: params[:id])
+    #   tag.update!(tag_params)
+    #   render json: tag
+    # end
 
     private
 

@@ -75,11 +75,6 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
       myWorkout = true;
     }
 
-    // var myComment = false;
-    // if (currentUser.id === workout.user.id) {
-    //   myComment = true;
-    // }
-
     const handleClick2 = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -96,9 +91,7 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
       setOpenComment((prev) => !prev);
     };
   
-    const handleClickAway = () => {
-      setOpenComment(false);
-    };
+ 
 
     const handleUpdateCommCount = (comment_count) => {
       setPostComments(postComments + comment_count)
@@ -278,8 +271,8 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
                           )}
                       </Stack>
                       <div style={{boxShadow: '0.0em 0.0em 0.1em 0.0em rgb(10 10 10 / 40%)',}}>
-                        <img style={{objectFit: 'cover', minHeight: '500px', maxHeight: '700px', minWidth: '100%', maxWidth: '100%'}}src={workoutState.image}/>
-                          <div style={{boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 20%)', display: 'flex', flexDirection: 'column', minWidth: '900px', marginLeft: '0%', marginTop: '-20%'}}>  
+                        <img style={{objectFit: 'contain', minHeight: '500px', maxHeight: '500px', minWidth: '100%', maxWidth: '100%', paddingBottom: '0px'}}src={workoutState.image}/>
+                          <div style={{boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 20%)', display: 'flex', flexDirection: 'column', minWidth: '900px', marginLeft: '0%', marginTop: '0%', backgroundColor: 'black', opacity: '70%'}}>  
                             <Typography style={{marginLeft: '100px', marginTop: '20px', fontSize: '24px', fontWeight: '300', padding: '10px', textTransform: 'capitalize', color: 'white'}}>{workoutState.title}</Typography>
                             <Typography style={{marginLeft: '100px', marginTop: '-10px', fontSize: '18px', fontWeight: '300', padding: '10px', color: 'white'}}>{workoutState.description}</Typography>
                             <div style={{boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 10%)', display: 'flex',  marginLeft: '120px', paddingLeft: '0px',}}>

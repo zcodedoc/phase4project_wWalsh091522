@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
-import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
+import { Button, Error, FormField, Input, Label } from "../styles";
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -42,7 +42,7 @@ function NewWorkouts({ user, setUser }) {
     e.preventDefault();
     setIsLoading(true);
     createWorkout();
-    createWorkoutTag();
+    // createWorkoutTag();
   }
 
   function createWorkout() {

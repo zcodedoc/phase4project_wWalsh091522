@@ -20,9 +20,8 @@ class WorkoutsController < ApplicationController
   end
 
     def create
-      userstuff =  User.find_by(id: session[:user_id])
+        userstuff =  User.find_by(id: session[:user_id])
         workout = Workout.create({user: userstuff, title: workout_params[:title], description: workout_params[:description], image: workout_params[:image], sets: workout_params[:sets], reps: workout_params[:reps], weight: workout_params[:weight],  })
-        
         if workout.valid?
           render json: workout, status: :created
         else

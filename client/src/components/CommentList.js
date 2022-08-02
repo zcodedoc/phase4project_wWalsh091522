@@ -22,7 +22,6 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, getNewCo
     const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorEl2, setAnchorEl2] = React.useState(null);
-    const [openModal2, setOpen2] = React.useState(false);
     const [open3, setOpen3] = React.useState(Boolean(anchorEl2));
     const [comment, setComment] = useState(workout.comment);
     const [commentState, setCommentState] = useState();
@@ -32,12 +31,6 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, getNewCo
     const [isCommentedOn, setIsCommentedOn] = React.useState(false);
     const [postComments, setPostComments] = useState(comments.length);
     const [errors, setErrors] = useState([]);
-    const handleModalClose2 = () => setOpen2(false);
-    
-    // var myComment = false;
-    // if (currentUser.id === workout.user.id) {
-    //   myComment = true;
-    // }
 
     const handleClick3 = (event) => {
         setAnchorEl2(event.currentTarget);
@@ -49,10 +42,6 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, getNewCo
       setOpen3(false);
 
     };
-
-    function handleOpenModal2() {
-      setOpen2(!openModal2)
-    }
 
     function handleSubmit(e) {
       e.preventDefault();

@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { Button } from "../styles";
 import Post from "../components/Post";
 
-
-
 function Feed({user, setUser}) {
   const [workouts, setWorkouts] = useState([]);
   const [workoutTags, setWorkoutTags] = useState('');

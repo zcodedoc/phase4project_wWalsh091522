@@ -26,7 +26,7 @@ const style = {
     borderRadius: '20px'
   };
 
-function EditWorkoutModal({workout,  comments, currentUser,  onUpdateWorkout, onDeleteWorkout, handleUpdateWorkoutList, handleUpdateWorkout, onDeleteComment, handleUpdateCommentList, getNewComments, workout_tag, handleModalClose, handleUpdateWorkoutLocal, handleTagUpdate }) {
+function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handleUpdateWorkout, handleModalClose, handleUpdateWorkoutLocal, handleTagUpdate }) {
       const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
       const [openModal, setOpen] = React.useState(true);
       const [workoutState, setWorkoutState] = useState(workout);
@@ -39,26 +39,6 @@ function EditWorkoutModal({workout,  comments, currentUser,  onUpdateWorkout, on
       const [errors, setErrors] = useState([]);
       const history = useHistory();
      
-
-      function createWorkoutTag() {
-        fetch("/workout_tags", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            tag_id: target,
-            workout_id: id,
-          }),
-        }).then((r) => {
-          setIsLoading(false);
-          if (r.ok) {
-            history.push("/");
-          } else {
-            r.json().then((err) => setErrors(err.errors));
-          }
-        });
-      }
 
       const handleTagChange = (event, index) => {
      
