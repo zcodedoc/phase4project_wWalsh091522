@@ -12,19 +12,19 @@ import FitnessCenterOutlinedIcon from '@mui/icons-material/FitnessCenterOutlined
 import Fab from '@mui/material/Fab';
 import { useHistory } from "react-router";
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '10%',
-    transform: 'translate(-50%, -50%)',
-    width: 600,
-    height: 205,
-    bgcolor: 'background.paper',
-    border: '2px solid #fff',
-    boxShadow: 24,
-    p: 3.5,
-    borderRadius: '20px'
-  };
+// const style = {
+//     position: 'absolute',
+//     top: '50%',
+//     left: '10%',
+//     transform: 'translate(-50%, -50%)',
+//     width: 600,
+//     height: 205,
+//     bgcolor: 'background.paper',
+//     border: '2px solid #fff',
+//     boxShadow: 24,
+//     p: 3.5,
+//     borderRadius: '20px'
+//   };
 
 function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handleUpdateWorkout, handleModalClose, handleUpdateWorkoutLocal, handleTagUpdate }) {
       const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
@@ -34,18 +34,18 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       const [workoutTags, setWorkoutTags] = useState([]);
       const [origWorkoutTags, setOrigWorkoutTags] = useState([]);
       const [deleteTags, setDeleteTags] = useState([]);
-      const [target, setTarget] = useState('');
+      // const [target, setTarget] = useState('');
       const [isLoading, setIsLoading] = useState(false);
       const [errors, setErrors] = useState([]);
-      const history = useHistory();
+      // const history = useHistory();
      
 
       const handleTagChange = (event, index) => {
      
         let obj = tags.find(tag => tag.id === event.target.value);
-        console.log(obj)
-        console.log(index);
-        console.log(event.target)
+        // console.log(obj)
+        // console.log(index);
+        // console.log(event.target)
         let newTag = {
           id: event.target.value,
           name: obj.name,
@@ -55,8 +55,8 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         updateTags[index].tag = newTag;
         updateTags[index].tag_id = obj.id;
         setWorkoutTags(updateTags);
-        console.log(updateTags)
-        console.log(workoutState)
+        // console.log(updateTags)
+        // console.log(workoutState)
         return;
 
       }
@@ -67,7 +67,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         let destroyTags = [...deleteTags]
         const delTags = newTags.splice(index, 1);
         destroyTags.push(delTags[0]);
-        console.log(destroyTags)
+        // console.log(destroyTags)
         setDeleteTags(destroyTags);
         setWorkoutTags(newTags);
         
@@ -96,7 +96,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
           })
           setWorkoutTags(localWorkoutTags);
           setOrigWorkoutTags(localWorkoutTags)
-          console.log(tags);
+          // console.log(tags);
           });
       }, []);
 
@@ -105,7 +105,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       function handleUpdateWorkout(e) {
         e.preventDefault();
         updateWorkout();
-        console.log(workout)
+        // console.log(workout)
         handleUpdateWorkoutLocal(workoutState);
         updateWorkoutTags();
       }
@@ -125,7 +125,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
                 })
                 .then((r) => {
                 setIsLoading(false);
-                console.log(r)
+                // console.log(r)
                 if (r.ok) {
                   handleLocalModalClose();
                 } else {
@@ -137,15 +137,15 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       }
 
       function updateWorkoutTags() {
-        console.log(workoutState);
+        // console.log(workoutState);
         workoutTagDelete();
 
         workoutTags.map((workout_tag) => {
-          console.log(workout_tag)
+          // console.log(workout_tag)
 
           let obj = origWorkoutTags.find(tag => tag.id === workout_tag.id);
           if (obj) {
-            console.log("UPDATE HITTING")
+            // console.log("UPDATE HITTING")
             fetch(`/workout_tags/${workout_tag.id}`, {
               method: "PATCH",
                 headers: {
@@ -158,7 +158,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
                 })
                 .then((r) => {
                 setIsLoading(false);
-                console.log(r)
+                // console.log(r)
                 if (r.ok) {
                   handleLocalModalClose();
                 } else {
@@ -180,7 +180,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
                 })
                 .then((r) => {
                 setIsLoading(false);
-                console.log(r)
+                // console.log(r)
                 if (r.ok) {
                   handleLocalModalClose();
                 } else {
@@ -199,7 +199,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       }
 
       function updateWorkout() {
-        console.log(workoutState);
+        // console.log(workoutState);
         fetch(`/workouts/${id}`, {
           method: "PATCH",
           headers: {
@@ -220,7 +220,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
           .then((res) => {
             if (res.ok) {
               handleLocalModalClose();
-              console.log('hitting')
+              // console.log('hitting')
             } else {
               res.json().then(console.log)
             }
@@ -229,7 +229,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
 
       function handleAddTag(e) {
         e.preventDefault();
-        console.info('You clicked the Add icon.');
+        // console.info('You clicked the Add icon.');
         let newTag = {
           id: 22,
           tag: tags[0],
@@ -239,7 +239,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         } 
         let addTags = [...workoutTags];
         addTags.push(newTag);
-        console.log(addTags);
+        // console.log(addTags);
         return setWorkoutTags(addTags);
       };
       

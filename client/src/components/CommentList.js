@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Box } from "../styles";
 import Typography from '@mui/material/Typography';
 import Fab from '@mui/material/Fab';
@@ -25,7 +25,7 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, getNewCo
     const [open3, setOpen3] = React.useState(Boolean(anchorEl2));
     const [comment, setComment] = useState(workout.comment);
     const [commentState, setCommentState] = useState();
-    const [localComments, setLocalComments] = useState(comments);
+    // const [localComments, setLocalComments] = useState(comments);
     const [isLoading, setIsLoading] = useState(false);
     const [workoutState, setWorkoutState] = useState(workout);
     const [isCommentedOn, setIsCommentedOn] = React.useState(false);
@@ -80,7 +80,7 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, getNewCo
       }
 
       const deleteLocalComment = (comment) => {
-        console.log(comments);
+        // console.log(comments);
       }
 
       function handleDeleteComment(e, comment) {

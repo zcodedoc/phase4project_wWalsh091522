@@ -39,7 +39,7 @@ const style = {
 function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWorkoutList, onDeleteComment, getNewComments, workout_tag }) {
     const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
     const [workoutState, setWorkoutState] = useState(workout);
-    const [workouts, setWorkouts] = useState([]);
+    // const [workouts, setWorkouts] = useState([]);
     const [workoutTags, setWorkoutTags] = useState(workout.tags);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [isLiked, setIsLiked] = React.useState(false);
@@ -54,7 +54,7 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
     const [target, setTarget] = useState('');
     const history = useHistory();
     const handleModalClose = () => setOpen(false);
-    const handleModalClose2 = () => setOpen2(false);
+    // const handleModalClose2 = () => setOpen2(false);
     const handleOpen = () => setOpen(true);
     const open2 = Boolean(anchorEl);
 
@@ -97,39 +97,39 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
       setPostComments(postComments + comment_count)
     }
 
-    function handleUpdateWorkout(e) {
-      e.preventDefault();
-      fetch(`/workouts/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(workoutState),
-      })
-      .then((res) => {
-        if (res.ok) {
-          handleModalClose();
-        } else {
-          res.json().then(console.log)
-        }
-      });
-      fetch(`/workout_tags/${workout_tag.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tag_id: target,
-          workout_id: id
-        }),
-      }).then((r) => {
-        if (r.ok) {
-          history.push("/");
-        } else {
-          r.json().then((err) => setErrors(err.errors));
-        }
-      });
-    }
+    // function handleUpdateWorkout(e) {
+    //   e.preventDefault();
+    //   fetch(`/workouts/${id}`, {
+    //     method: "PATCH",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(workoutState),
+    //   })
+    //   .then((res) => {
+    //     if (res.ok) {
+    //       handleModalClose();
+    //     } else {
+    //       res.json().then(console.log)
+    //     }
+    //   });
+    //   fetch(`/workout_tags/${workout_tag.id}`, {
+    //     method: "PATCH",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       tag_id: target,
+    //       workout_id: id
+    //     }),
+    //   }).then((r) => {
+    //     if (r.ok) {
+    //       history.push("/");
+    //     } else {
+    //       r.json().then((err) => setErrors(err.errors));
+    //     }
+    //   });
+    // }
 
     async function breakoutLikes() {
       setPostLikes((prev) => prev+1);
@@ -272,9 +272,9 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
                       </Stack>
                       <div style={{boxShadow: '0.0em 0.0em 0.1em 0.0em rgb(10 10 10 / 40%)',}}>
                         <img style={{objectFit: 'contain', minHeight: '500px', maxHeight: '500px', minWidth: '100%', maxWidth: '100%', paddingBottom: '0px'}}src={workoutState.image}/>
-                          <div style={{boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 20%)', display: 'flex', flexDirection: 'column', minWidth: '900px', marginLeft: '0%', marginTop: '0%', backgroundColor: 'black', opacity: '70%'}}>  
-                            <Typography style={{marginLeft: '100px', marginTop: '20px', fontSize: '24px', fontWeight: '300', padding: '10px', textTransform: 'capitalize', color: 'white'}}>{workoutState.title}</Typography>
-                            <Typography style={{marginLeft: '100px', marginTop: '-10px', fontSize: '18px', fontWeight: '300', padding: '10px', color: 'white'}}>{workoutState.description}</Typography>
+                          <div style={{boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 20%)', display: 'flex', flexDirection: 'column', minWidth: '900px', marginLeft: '0%', marginTop: '0%', backgroundColor: 'white', opacity: '100%'}}>  
+                            <Typography style={{marginLeft: '100px', marginTop: '20px', fontSize: '24px', fontWeight: '300', padding: '10px', textTransform: 'capitalize', color: 'black'}}>{workoutState.title}</Typography>
+                            <Typography style={{marginLeft: '100px', marginTop: '-10px', fontSize: '18px', fontWeight: '300', padding: '10px', color: 'black'}}>{workoutState.description}</Typography>
                             <div style={{boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 10%)', display: 'flex',  marginLeft: '120px', paddingLeft: '0px',}}>
                               <Fab variant="extended" style={{backgroundColor: 'white', color: 'black', border: '1px solid white', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', marginTop: '5px', marginBottom: '20px', marginRight: '30px', height: '40px', padding: '0px', width: '120px'}}>
                                 <Typography style={{marginRight: '0px'}}>{workoutState.sets} sets</Typography>

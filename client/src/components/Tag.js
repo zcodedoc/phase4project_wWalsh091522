@@ -3,7 +3,7 @@ import "./Post.css";
 import Typography from '@mui/material/Typography';
 
 function Tag(tag) {
-    const { id, name} = tag;
+    // const { id, name} = tag;
     const [tags, setTags] = useState([]);
     const [workouts, setWorkouts] = useState([]);
 
