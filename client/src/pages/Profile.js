@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Typography from '@mui/material/Typography';
 
@@ -40,7 +40,7 @@ function Profile({user, setUser}) {
   
 
   return (
-      <div style={{width: '80%', marginLeft: '10%', display: 'flex',}}>
+      <div style={{width: '80%', marginLeft: '10%', display: 'flex'}}>
         <Wrapper>
           <div style={{display: 'flex', flexDirection: 'column', width: '100%', marginLeft: '0px', paddingTop: '0px',}}>
             <div style={{width: '100%', height: '25%', display: 'flex', flexDirection: 'row'}}>

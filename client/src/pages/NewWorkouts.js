@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 function NewWorkouts({ user, setUser }) {
   const [target, setTarget] = useState(0);
-  const [target2, setTarget2] = useState(0);
+  // const [target2, setTarget2] = useState(0);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80");
@@ -19,9 +19,9 @@ function NewWorkouts({ user, setUser }) {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [tags, setTags] = useState([]);
-  const [tagOption, setTagOption] = useState('');
+  // const [tagOption, setTagOption] = useState('');
   const [workoutId, setWorkoutId] = useState();
-  const [workouts, setWorkouts] = useState([]);
+  // const [workouts, setWorkouts] = useState([]);
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -42,7 +42,7 @@ function NewWorkouts({ user, setUser }) {
     e.preventDefault();
     setIsLoading(true);
     createWorkout();
-    // createWorkoutTag();
+    // createWorkoutTag(); 
   }
 
   function createWorkout() {
