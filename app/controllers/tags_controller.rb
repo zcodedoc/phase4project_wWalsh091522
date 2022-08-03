@@ -1,27 +1,27 @@
 class TagsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
     def index
       tags = Tag.all
       render json: tags
     end 
 
     def show
-      tag = Tag.find_by(id: params[:id])
-      if tag
-        render json: tag, methods: [:summary]
-      else
-        render json: { error: "Tag not found" }, status: :not_found
-      end
+      tag = find_tag
+      render json: tag, methods: [:summary]
     end
-
-    # def update
-    #   tag = Tag.find_by(id: params[:id])
-    #   tag.update!(tag_params)
-    #   render json: tag
-    # end
 
     private
 
+    def find_tag 
+      Tag.find(params[:id])
+    end 
+
     def tag_params
       params.permit( :id, :name, :image)
-    end    
+    end 
+
+    def record_not_found 
+      render json: { error: "Tag not found" }, status: :not_found
+    end
 end

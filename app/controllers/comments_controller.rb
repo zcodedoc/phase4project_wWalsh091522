@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   wrap_parameters format: []
 	rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   
     def index
       comments = Comment.all
@@ -19,35 +20,30 @@ class CommentsController < ApplicationController
   
     def show
       comment = find_comment
-      if comment
-        render json: comment
-      else
-        render json: { error: "Comment not found" }, status: :not_found
-      end
+      render json: comment
     end
 
     def destroy
       comment = find_comment
-        if comment 
-          comment.destroy
-          head :no_content
-        else 
-          render json:  { error: "Comment not found" }, status: :not_found
-        end
+      comment.destroy
+      head :no_content
     end
 
     private
   
-    def render_unprocessable_entity(invalid)
-      render json:{error: invalid.record.errors}, status: :unprocessable_entity
-    end 
-
     def find_comment
-      Comment.find_by(id: params[:id])
+      Comment.find(params[:id])
     end
-    
+
     def comment_params
       params.permit(:id, :user_id, :workout_id, :comment)
     end
-  
+
+    def record_not_found
+      render json: { error: "Comment not found" }, status: :not_found
+    end
+
+    def render_unprocessable_entity(invalid)
+      render json:{error: invalid.record.errors}, status: :unprocessable_entity
+    end 
 end

@@ -6,43 +6,32 @@ class WorkoutsController < ApplicationController
 
     def index        
       return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
-      workouts = Workout.all.includes(:user).order("created_at ASC")
+      workouts = Workout.all
       render json: workouts
     end
     
     def show
-      workout = Workout.find_by(id: params[:id])
-      if workout
-        render json: workout
-      else
-        render json: { error: "Workout not found" }, status: :not_found
-      end
-  end
+      workout = find_workout
+      render json: workout
+    end
 
     def create
         userstuff =  User.find_by(id: session[:user_id])
         workout = Workout.create({user: userstuff, title: workout_params[:title], description: workout_params[:description], image: workout_params[:image], sets: workout_params[:sets], reps: workout_params[:reps], weight: workout_params[:weight],  })
-        if workout.valid?
-          render json: workout, status: :created
-        else
-          render json: { errors: workout.errors.full_messages }, status: :unprocessable_entity
-        end
+        render json: workout, status: :created
+      
     end
 
     def update
-      workout = find_workout_update
+      workout = find_workout
       workout.update!(workout_params)
       render json: workout
     end
 
     def increment_likes
-      workout = Workout.find(params[:id])
-      if workout 
-        workout.update(likes: params[:likes])
-        render json: workout
-      else 
-        render json: { error: "Workout not found" }, status: :not_found
-      end
+      workout = find_workout
+      workout.update(likes: params[:likes])
+      render json: workout
     end
 
     def destroy
@@ -56,10 +45,6 @@ class WorkoutsController < ApplicationController
     def find_workout
       Workout.find(params[:id])
     end
-
-     def find_workout_update
-      Workout.find(params[:id])
-     end
 
      def workout_params
         params.permit(:id, :title, :description, :image, :sets, :reps, :weight, :likes, :user_id)
