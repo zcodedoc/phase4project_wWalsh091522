@@ -39,7 +39,6 @@ const style = {
 function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWorkoutList, onDeleteComment, getNewComments, workout_tag }) {
     const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
     const [workoutState, setWorkoutState] = useState(workout);
-    // const [workouts, setWorkouts] = useState([]);
     const [workoutTags, setWorkoutTags] = useState(workout.tags);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [isLiked, setIsLiked] = React.useState(false);
@@ -54,7 +53,6 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
     const [target, setTarget] = useState('');
     const history = useHistory();
     const handleModalClose = () => setOpen(false);
-    // const handleModalClose2 = () => setOpen2(false);
     const handleOpen = () => setOpen(true);
     const open2 = Boolean(anchorEl);
 
@@ -91,51 +89,16 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
       setOpenComment((prev) => !prev);
     };
   
- 
-
     const handleUpdateCommCount = (comment_count) => {
       setPostComments(postComments + comment_count)
     }
-
-    // function handleUpdateWorkout(e) {
-    //   e.preventDefault();
-    //   fetch(`/workouts/${id}`, {
-    //     method: "PATCH",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(workoutState),
-    //   })
-    //   .then((res) => {
-    //     if (res.ok) {
-    //       handleModalClose();
-    //     } else {
-    //       res.json().then(console.log)
-    //     }
-    //   });
-    //   fetch(`/workout_tags/${workout_tag.id}`, {
-    //     method: "PATCH",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       tag_id: target,
-    //       workout_id: id
-    //     }),
-    //   }).then((r) => {
-    //     if (r.ok) {
-    //       history.push("/");
-    //     } else {
-    //       r.json().then((err) => setErrors(err.errors));
-    //     }
-    //   });
-    // }
 
     async function breakoutLikes() {
       setPostLikes((prev) => prev+1);
       return true;
     }
 
+// should be rewritten, 
     function handleUpdateWorkoutLikes(e) {
       if (isLiked) {
         setWorkoutState({
@@ -194,6 +157,8 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
           }
       })
     }
+
+    //rewrite
     function handleTagUpdate(newTags){
       let slimTags = []
       newTags.map((tag) => {

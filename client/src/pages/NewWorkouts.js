@@ -42,7 +42,6 @@ function NewWorkouts({ user, setUser }) {
     e.preventDefault();
     setIsLoading(true);
     createWorkout();
-    // createWorkoutTag(); 
   }
 
   function createWorkout() {
@@ -66,8 +65,6 @@ function NewWorkouts({ user, setUser }) {
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
-    // }).then(() => {
-    //   console.log("HITTING HERE")
     });
   }
 

@@ -19,15 +19,11 @@ import SendIcon from '@mui/icons-material/Send';
   };
 
 function CommentList({workout, comments, currentUser, onDeleteComment, getNewComments, handleUpdateCommCount}) {
-    // const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorEl2, setAnchorEl2] = React.useState(null);
     const [open, setOpen] = React.useState(Boolean(anchorEl2));
     const [comment, setComment] = useState(workout.comment);
     const [commentState, setCommentState] = useState();
-    // const [localComments, setLocalComments] = useState(comments);
-    // const [isLoading, setIsLoading] = useState(false);
-    // const [workoutState, setWorkoutState] = useState(workout);
     const [isCommentedOn, setIsCommentedOn] = React.useState(false);
     const [postComments, setPostComments] = useState(comments.length);
     const [errors, setErrors] = useState([]);
@@ -48,14 +44,9 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
 
     };
 
- //could clean up
+
     function handleSubmit(e) {
       e.preventDefault();
-      // setIsLoading(true);
-      // setWorkoutState({
-      //   ...workoutState,
-      //   [e.target.id]: e.target.value,
-      // });
       fetch(`/comments`, {
         method: "POST",
         headers: {
@@ -67,30 +58,19 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
           comment: commentState
           }),
         }).then((r) => {
-          // setIsLoading(false);
           if (r.ok) {
             getNewComments();
             handleUpdateCommCount(1);
             setCommentState("");
             setIsCommentedOn(true);
             setPostComments((prev) => prev+1);
-            // let newComment = {
-            //   comment,
-            //   user_id: currentUser.id,
-            //   workout_id: workout.id,
-            // }
           } else {
             r.json().then((err) => setErrors(err.errors));
           }
         });
       }
 
- //do not think this is necessary
-      // const deleteLocalComment = (comment) => {
-        // console.log(comments);
-      // }
 
- //should rewrite, removing any unnecessary lines
       function handleDeleteComment(e, comment) {
         e.preventDefault();
         fetch(`/comments/${comment}`, {
@@ -98,7 +78,6 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
         }).then((res) => {
             if (res.ok) {
             onDeleteComment(comment);
-            // deleteLocalComment(comment);
             handleClose();
             handleUpdateCommCount(-1);
             getNewComments();
