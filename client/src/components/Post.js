@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Post.css";
 import EditWorkoutModal from "./EditWorkoutModal";
 import CommentList from "./CommentList";
-import { Box, Button} from "../styles";
+import {Box, Button} from "../styles";
 import Typography from '@mui/material/Typography';
 import Fab from '@mui/material/Fab';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -275,7 +275,7 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
                           <div style={{boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 20%)', display: 'flex', flexDirection: 'column', minWidth: '900px', marginLeft: '0%', marginTop: '0%', backgroundColor: 'white', opacity: '100%'}}>  
                             <Typography style={{marginLeft: '100px', marginTop: '20px', fontSize: '24px', fontWeight: '300', padding: '10px', textTransform: 'capitalize', color: 'black'}}>{workoutState.title}</Typography>
                             <Typography style={{marginLeft: '100px', marginTop: '-10px', fontSize: '18px', fontWeight: '300', padding: '10px', color: 'black'}}>{workoutState.description}</Typography>
-                            <div style={{boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 10%)', display: 'flex',  marginLeft: '120px', paddingLeft: '0px',}}>
+                            <div style={{boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)', display: 'flex',  marginLeft: '120px', paddingLeft: '0px',}}>
                               <Fab variant="extended" style={{backgroundColor: 'white', color: 'black', border: '1px solid white', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 30%)', marginTop: '5px', marginBottom: '20px', marginRight: '30px', height: '40px', padding: '0px', width: '120px'}}>
                                 <Typography style={{marginRight: '0px'}}>{workoutState.sets} sets</Typography>
                               </Fab>

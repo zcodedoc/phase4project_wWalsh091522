@@ -30,7 +30,7 @@ function App() {
     <NavBar user={user} setUser={setUser}/>
     <main style={{fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>
       <Switch>
-          <Route path='/tags'>
+          <Route path='/browse'>
             <Tags user={user} setUser={setUser}/>
           </Route>
           <Route path='/newworkout'>

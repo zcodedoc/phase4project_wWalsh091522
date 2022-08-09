@@ -5,16 +5,16 @@ import Typography from '@mui/material/Typography';
 function Tag(tag) {
     // const { id, name} = tag;
     const [tags, setTags] = useState([]);
-    const [workouts, setWorkouts] = useState([]);
+    // const [workouts, setWorkouts] = useState([]);
 
       
   useEffect(() => {
     fetch(`/tags`)
       .then((r) => r.json())
       .then(setTags);
-    fetch("/workouts")
-      .then((r) => r.json())
-      .then(setWorkouts);
+    // fetch("/workouts")
+    //   .then((r) => r.json())
+    //   .then(setWorkouts);
   }, []);
 
     return (

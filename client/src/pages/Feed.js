@@ -52,11 +52,17 @@ function Feed({user, setUser}) {
 
   const getTags = (workout_id) => {
     let workout_tag;
-    workoutTags.map(tag => {
-      if (tag.workout_id === workout_id) {
-        workout_tag = tag;
-      }
-    })
+    if (workoutTags) {
+      workoutTags.map(tag => {
+        if (tag.workout_id === workout_id) {
+          workout_tag = tag;
+        }
+      })
+    }
+    else {
+      console.log("ERROR WITH WORKOUTTAGS LOADING")
+    }
+    
     return workout_tag;
   }
 
@@ -127,7 +133,7 @@ const Wrapper = styled.section`
   margin-top: 5%;
   margin-left: -27.5%;
   background-color: white;
-  box-shadow: 0 0.055em 0.225em rgb(20 20 20 / 15%);
+  box-shadow: 0 0.055em 0.225em rgb(20 20 20 / 0%);
 `;
 
 

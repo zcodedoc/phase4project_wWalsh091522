@@ -12,7 +12,7 @@ class WorkoutsController < ApplicationController
     
     def show
       workout = find_workout
-      render json: workout
+      render json: workout, include: :comments
     end
 
     def create

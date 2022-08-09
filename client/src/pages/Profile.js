@@ -5,38 +5,38 @@ import Typography from '@mui/material/Typography';
 
 
 function Profile({user, setUser}) {
-  const [workouts, setWorkouts] = useState([]);
-  const [workoutTags, setWorkoutTags] = useState('');
-  const [comments, setComments] = useState([]);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  // const [workouts, setWorkouts] = useState([]);
+  // const [workoutTags, setWorkoutTags] = useState('');
+  // const [comments, setComments] = useState([]);
+  // const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const open2 = Boolean(anchorEl);
+  // const open2 = Boolean(anchorEl);
  
-  const getTags = (workout_id) => {
-    let workout_tag;
-    workoutTags.map(tag => {
-      if (tag.workout_id === workout_id) {
-        workout_tag = tag;
-      }
-    })
-    return workout_tag;
-  }
+  // const getTags = (workout_id) => {
+  //   let workout_tag;
+  //   workoutTags.map(tag => {
+  //     if (tag.workout_id === workout_id) {
+  //       workout_tag = tag;
+  //     }
+  //   })
+  //   return workout_tag;
+  // }
 
 
-  useEffect(() => {
-    fetch("/workouts/")
-      .then((r) => r.json())
-      .then(setWorkouts);
-      fetch("/workout_tags")
-      .then((r) => r.json())
-      .then(setWorkoutTags);
-      fetch("/comments")
-      .then((r) => r.json())
-      .then(setComments);
-      fetch("/me")
-      .then((r) => r.json())
-      .then(setUser);
-  }, []);
+  // useEffect(() => {
+    // fetch("/workouts/")
+    //   .then((r) => r.json())
+    //   .then(setWorkouts);
+    //   fetch("/workout_tags")
+    //   .then((r) => r.json())
+    //   .then(setWorkoutTags);
+    //   fetch("/comments")
+    //   .then((r) => r.json())
+    //   .then(setComments);
+  //     fetch("/me")
+  //     .then((r) => r.json())
+  //     .then(setUser);
+  // }, []);
   
 
   return (

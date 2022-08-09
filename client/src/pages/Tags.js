@@ -5,19 +5,19 @@ import Tag from "../components/Tag";
 
 
 function Tags({user, setUser}) {
-    const [workouts, setWorkouts] = useState([]);
-    const [tags, setTags] = useState([]);
+    // const [workouts, setWorkouts] = useState([]);
+    // const [tags, setTags] = useState([]);
 
     useEffect(() => {
-        fetch("/workouts")
-          .then((r) => r.json())
-          .then(setWorkouts);
-          fetch("/tags")
-          .then((r) => r.json())
-          .then(setTags);
-          fetch("/me")
-          .then((r) => r.json())
-          .then(setUser);
+        // fetch("/workouts")
+        //   .then((r) => r.json())
+        //   .then(setWorkouts);
+        //   fetch("/tags")
+        //   .then((r) => r.json())
+        //   .then(setTags);
+        //   fetch("/me")
+        //   .then((r) => r.json())
+        //   .then(setUser);
     
       }, []);
 

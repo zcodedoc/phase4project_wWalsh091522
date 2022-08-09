@@ -18,38 +18,44 @@ import SendIcon from '@mui/icons-material/Send';
     bgcolor: 'background.paper',
   };
 
-function CommentList({workout,  comments, currentUser, onDeleteComment, getNewComments, handleUpdateCommCount }) {
-    const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
+function CommentList({workout, comments, currentUser, onDeleteComment, getNewComments, handleUpdateCommCount}) {
+    // const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorEl2, setAnchorEl2] = React.useState(null);
-    const [open3, setOpen3] = React.useState(Boolean(anchorEl2));
+    const [open, setOpen] = React.useState(Boolean(anchorEl2));
     const [comment, setComment] = useState(workout.comment);
     const [commentState, setCommentState] = useState();
     // const [localComments, setLocalComments] = useState(comments);
-    const [isLoading, setIsLoading] = useState(false);
-    const [workoutState, setWorkoutState] = useState(workout);
+    // const [isLoading, setIsLoading] = useState(false);
+    // const [workoutState, setWorkoutState] = useState(workout);
     const [isCommentedOn, setIsCommentedOn] = React.useState(false);
     const [postComments, setPostComments] = useState(comments.length);
     const [errors, setErrors] = useState([]);
 
-    const handleClick3 = (event) => {
+    // var myComment = false;
+    // if (currentUser.id === workout.user.id) {
+    //   myComment = true;
+    // }
+
+    const handleClick = (event) => {
         setAnchorEl2(event.currentTarget);
-        setOpen3(true)
+        setOpen(true)
       };
 
-    const handleClose3 = () => {
+    const handleClose = () => {
       setAnchorEl(null);
-      setOpen3(false);
+      setOpen(false);
 
     };
 
+ //could clean up
     function handleSubmit(e) {
       e.preventDefault();
-      setIsLoading(true);
-      setWorkoutState({
-        ...workoutState,
-        [e.target.id]: e.target.value,
-      });
+      // setIsLoading(true);
+      // setWorkoutState({
+      //   ...workoutState,
+      //   [e.target.id]: e.target.value,
+      // });
       fetch(`/comments`, {
         method: "POST",
         headers: {
@@ -57,32 +63,34 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, getNewCo
         },
         body: JSON.stringify({
           user_id: currentUser.id,
-          workout_id: id,
+          workout_id: workout.id,
           comment: commentState
           }),
         }).then((r) => {
-          setIsLoading(false);
+          // setIsLoading(false);
           if (r.ok) {
             getNewComments();
             handleUpdateCommCount(1);
             setCommentState("");
             setIsCommentedOn(true);
             setPostComments((prev) => prev+1);
-            let newComment = {
-              comment,
-              user_id: currentUser.id,
-              workout_id: id,
-            }
+            // let newComment = {
+            //   comment,
+            //   user_id: currentUser.id,
+            //   workout_id: workout.id,
+            // }
           } else {
             r.json().then((err) => setErrors(err.errors));
           }
         });
       }
 
-      const deleteLocalComment = (comment) => {
+ //do not think this is necessary
+      // const deleteLocalComment = (comment) => {
         // console.log(comments);
-      }
+      // }
 
+ //should rewrite, removing any unnecessary lines
       function handleDeleteComment(e, comment) {
         e.preventDefault();
         fetch(`/comments/${comment}`, {
@@ -90,8 +98,8 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, getNewCo
         }).then((res) => {
             if (res.ok) {
             onDeleteComment(comment);
-            deleteLocalComment(comment);
-            handleClose3();
+            // deleteLocalComment(comment);
+            handleClose();
             handleUpdateCommCount(-1);
             getNewComments();
             } else {
@@ -114,13 +122,15 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, getNewCo
                             <Typography style={{ boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 0%)', padding: '10px', border: '0px solid black', minWidth: '200px', height: '20px', marginTop: '0px', borderRadius: '8px', fontSize: '16px', paddingLeft: '15px', marginLeft: '2.5%', marginRight: '10%', marginBottom: '20px'}} >{comment.comment}</Typography>
                           </div>
                           <>
-                            <Button onClick={handleClick3} style={{height: '40px', width: '50px', border: '0px solid black', marginLeft: '0%', marginTop: '10px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)',}}><MoreHorizIcon/></Button>
+                          {/* {myComment ? ( */}
+                            <div>
+                            <Button onClick={handleClick} style={{height: '40px', width: '50px', border: '0px solid black', marginLeft: '0%', marginTop: '10px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)',}}><MoreHorizIcon/></Button>
                                 <Menu
                                     style={{marginTop: '5px', marginRight: '30px'}}
                                     id="basic-menu"
                                     anchorEl={anchorEl2}
-                                    open={open3}
-                                    onClose={handleClose3}
+                                    open={open}
+                                    onClose={handleClose}
                                     MenuListProps={{
                                     'aria-labelledby': 'basic-button',
                                 }}>
@@ -131,6 +141,8 @@ function CommentList({workout,  comments, currentUser, onDeleteComment, getNewCo
                                     </div>
                                   </div>
                                 </Menu>
+                                </div>
+                          {/* ) : null} */}
                           </> 
                         </div>
                       ))

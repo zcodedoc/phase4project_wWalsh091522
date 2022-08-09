@@ -14,11 +14,11 @@ import styled from "styled-components";
 function NavBar({ user, setUser }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open2 = Boolean(anchorEl);
-  const handleClick2 = (event) => {
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose2 = () => {
+  const handleClose = () => {
     setAnchorEl(null);
   };
 
@@ -40,7 +40,7 @@ function NavBar({ user, setUser }) {
             </div>
             <div className="topbarCenter">
               <Link style={{color: 'black', textDecoration: 'none', width: '100px', height: '40px', paddingTop: '15px', textAlign: 'center', border: '0px solid black', marginRight: '2.5px'}} to='/' className="link"><MenuItem>Home</MenuItem></Link>
-              <Link style={{color: 'black',textDecoration: 'none', width: '100px', height: '40px', paddingTop: '15px', textAlign: 'center', border: '0px solid black', marginRight: '5px'}} to='/tags' className="link"><MenuItem>Browse</MenuItem></Link>
+              <Link style={{color: 'black',textDecoration: 'none', width: '100px', height: '40px', paddingTop: '15px', textAlign: 'center', border: '0px solid black', marginRight: '5px'}} to='/browse' className="link"><MenuItem>Browse</MenuItem></Link>
             </div>
             <Box className="newpostbox" as={Link} to="/newworkout">
               <Fab style={{color: 'white', backgroundColor: '#1877f2', boxShadow: '0 0.055em 0.225em rgb(20 20 20 / 25%)', height: '90%', height: '80%', marginTop: '5px'}} variant="extended">
@@ -54,15 +54,15 @@ function NavBar({ user, setUser }) {
               <Link to='/profile' className="link">
                 <img src={user.image} alt="" style={{border: '1px solid white', boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 40%)',}} className="topbarImg"/>
               </Link>
-              <KeyboardArrowDownIcon onClick={handleClick2} className="icon" style={{marginLeft: '0%', height: '20px', width: '20px', color: 'black', marginLeft: '-50px',  marginTop: '12px',}} sx={{ mr: 1.5 }}/>
+              <KeyboardArrowDownIcon onClick={handleClick} className="icon" style={{marginLeft: '0%', height: '20px', width: '20px', color: 'black', marginLeft: '-50px',  marginTop: '12px',}} sx={{ mr: 1.5 }}/>
               <div className="profile">
                 <div>
                   <Menu
                     style={{marginTop: '15px', padding: '0px'}}
                     id="basic-menu"
                     anchorEl={anchorEl}
-                    open={open2}
-                    onClose={handleClose2}
+                    open={open}
+                    onClose={handleClose}
                     MenuListProps={{
                       'aria-labelledby': 'basic-button',
                   }}>

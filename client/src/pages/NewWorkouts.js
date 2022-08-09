@@ -66,8 +66,8 @@ function NewWorkouts({ user, setUser }) {
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
-    }).then(() => {
-      console.log("HITTING HERE")
+    // }).then(() => {
+    //   console.log("HITTING HERE")
     });
   }
 

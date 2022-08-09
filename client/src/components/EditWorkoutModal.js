@@ -64,10 +64,10 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       const handleDeleteTag = (event, index) => {
         event.preventDefault();
         let newTags = [...workoutTags];
-        let destroyTags = [...deleteTags]
+        let destroyTags = [...deleteTags];
         const delTags = newTags.splice(index, 1);
         destroyTags.push(delTags[0]);
-        // console.log(destroyTags)
+        console.log(destroyTags)
         setDeleteTags(destroyTags);
         setWorkoutTags(newTags);
         
