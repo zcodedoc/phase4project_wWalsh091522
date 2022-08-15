@@ -13,7 +13,6 @@ import Fab from '@mui/material/Fab';
 
 
 function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handleUpdateWorkout, handleModalClose, handleUpdateWorkoutLocal, handleTagUpdate }) {
-      const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
       const [openModal, setOpen] = React.useState(true);
       const [workoutState, setWorkoutState] = useState(workout);
       const [tags, setTags] = useState([]);
@@ -23,9 +22,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       const [isLoading, setIsLoading] = useState(false);
       const [errors, setErrors] = useState([]);
      
-
       const handleTagChange = (event, index) => {
-     
         let obj = tags.find(tag => tag.id === event.target.value);
         let newTag = {
           id: event.target.value,
@@ -37,7 +34,6 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         updateTags[index].tag_id = obj.id;
         setWorkoutTags(updateTags);
         return;
-
       }
 
       const handleDeleteTag = (event, index) => {
@@ -48,8 +44,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         destroyTags.push(delTags[0]);
         console.log(destroyTags)
         setDeleteTags(destroyTags);
-        setWorkoutTags(newTags);
-        
+        setWorkoutTags(newTags);       
       };
 
       function handleChange(e) {
@@ -64,12 +59,14 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         fetch("/tags")
         .then((r) => r.json())
         .then(setTags);
+
+
         fetch("/workout_tags")
         .then((r) => r.json())
         .then((tags) => {
           let localWorkoutTags = []
           tags.map((tag) => {
-            if (tag.workout_id === id) {
+            if (tag.workout_id === workout.id) {
               localWorkoutTags.push(tag);
             }
           })
@@ -77,9 +74,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
           setOrigWorkoutTags(localWorkoutTags)
           });
       }, []);
-
  
-
       function handleUpdateWorkout(e) {
         e.preventDefault();
         updateWorkout();
@@ -88,40 +83,36 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       }
 
       function workoutTagDelete() {
-        deleteTags.map((del_tag) => {
-          let obj = origWorkoutTags.find(tag => tag.id === del_tag.id);
+        deleteTags.map((workout_tag) => {
+          let obj = origWorkoutTags.find(tag => tag.id === workout_tag.id);
           if (obj) {
-            fetch(`/workout_tags/${del_tag.id}`, {
+            fetch(`/workout_tags/${workout_tag.id}`, {
               method: "DELETE",
                 headers: {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  id: del_tag.id,
+                  id: workout_tag.id,
                 }),
                 })
                 .then((r) => {
                 setIsLoading(false);
                 if (r.ok) {
-                  handleLocalModalClose();
+                  console.log("delete workout_tag ok")
                 } else {
-                  r.json().then((err) => setErrors(err.errors));
+                  r.json().then((err) => console(err.errors));
                 }
               });
           }
         })
       }
 
+ 
       function updateWorkoutTags() {
-  
         workoutTagDelete();
-
         workoutTags.map((workout_tag) => {
-
-
           let obj = origWorkoutTags.find(tag => tag.id === workout_tag.id);
           if (obj) {
-        
             fetch(`/workout_tags/${workout_tag.id}`, {
               method: "PATCH",
                 headers: {
@@ -129,16 +120,16 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
                 },
                 body: JSON.stringify({
                   id: workout_tag.id,
-                  tag_id: workout_tag.tag_id
+                  tag_id: workout_tag.tag_id,
                 }),
                 })
                 .then((r) => {
                 setIsLoading(false);
                 // console.log(r)
                 if (r.ok) {
-                  handleLocalModalClose();
+                  console.log("update workout_tag ok")
                 } else {
-                  r.json().then((err) => setErrors(err.errors));
+                  r.json().then((err) => console.log(err));
                 }
               });
             
@@ -158,25 +149,25 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
                 setIsLoading(false);
  
                 if (r.ok) {
-                  handleLocalModalClose();
+                  console.log("create workout_tag ok")
                 } else {
-                  r.json().then((err) => setErrors(err.errors));
+                  r.json().then((err) => console.log(err));
                 }
               });
 
           }
-          handleTagUpdate(workoutTags)
-          
-          })  
+          })
+          handleTagUpdate(workoutTags);
+          handleLocalModalClose();  
       }
+
       function handleLocalModalClose() {
         setDeleteTags([]);
         handleModalClose()
       }
 
       function updateWorkout() {
-
-        fetch(`/workouts/${id}`, {
+        fetch(`/workouts/${workout.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -195,7 +186,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         })
           .then((res) => {
             if (res.ok) {
-              handleLocalModalClose();
+              console.log("workout update ok")
               // console.log('hitting')
             } else {
               res.json().then(console.log)

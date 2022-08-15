@@ -12,14 +12,13 @@ class WorkoutsController < ApplicationController
     
     def show
       workout = find_workout
-      render json: workout, include: :comments
+      render json: workout
     end
 
     def create
         userstuff =  User.find_by(id: session[:user_id])
         workout = Workout.create({user: userstuff, title: workout_params[:title], description: workout_params[:description], image: workout_params[:image], sets: workout_params[:sets], reps: workout_params[:reps], weight: workout_params[:weight],  })
         render json: workout, status: :created
-      
     end
 
     def update

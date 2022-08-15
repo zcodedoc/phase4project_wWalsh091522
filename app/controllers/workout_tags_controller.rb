@@ -13,7 +13,7 @@ class WorkoutTagsController < ApplicationController
     end
 
     def create
-      workouttag = WorkoutTag.create(workout_id: params[:workout_id], tag_id: params[:tag_id])
+      workouttag = WorkoutTag.create(workouttag_params)
       render json: workouttag, status: :created
     end
 

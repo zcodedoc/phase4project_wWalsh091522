@@ -23,7 +23,7 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
     const [anchorEl2, setAnchorEl2] = React.useState(null);
     const [open, setOpen] = React.useState(Boolean(anchorEl2));
     const [comment, setComment] = useState(workout.comment);
-    const [commentState, setCommentState] = useState();
+    const [commentState, setCommentState] = useState('');
     const [isCommentedOn, setIsCommentedOn] = React.useState(false);
     const [postComments, setPostComments] = useState(comments.length);
     const [errors, setErrors] = useState([]);

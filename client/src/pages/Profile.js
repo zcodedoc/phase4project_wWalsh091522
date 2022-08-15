@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Typography from '@mui/material/Typography';
 
 
 function Profile({user, setUser}) {
-
-  
 
   return (
       <div style={{width: '80%', marginLeft: '10%', display: 'flex'}}>

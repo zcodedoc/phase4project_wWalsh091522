@@ -98,7 +98,6 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
       return true;
     }
 
-// should be rewritten, 
     function handleUpdateWorkoutLikes(e) {
       if (isLiked) {
         setWorkoutState({
@@ -158,7 +157,6 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
       })
     }
 
-    //rewrite
     function handleTagUpdate(newTags){
       let slimTags = []
       newTags.map((tag) => {
@@ -189,7 +187,7 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
                         {myWorkout ? (
                               <>
                                 <Button onClick={handleClick2} style={{height: '50px', width: '100px', border: '0px solid black', marginLeft: '60%', marginTop: '10px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)',}}><MoreHorizIcon/></Button>
-                                  <Menu
+                                    <Menu
                                       style={{marginTop: '5px', marginRight: '30px'}}
                                       id="basic-menu"
                                       anchorEl={anchorEl}
@@ -198,19 +196,19 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
                                       MenuListProps={{
                                         'aria-labelledby': 'basic-button',
                                       }}
-                                  >
-                                    <div style={{marginTop: '0px', marginRight: '0px', marginLeft: '0px', padding: '0%', paddingLeft: '0%', width: '150px', height: '110px', border: '0px solid red'}} >
-                                      <div style={{marginTop: '5px', marginBottom: '5px', height: '50px', marginLeft: '7.5%', width: '85%', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 5%)', borderRadius: '10px', padding: '0px', display: 'flex', cursor: 'pointer' }}>
-                                        <ModeEditOutlineRoundedIcon style={{height: '25px', width: '25px', marginTop: '10px', marginLeft: '20px', border: '0px solid black',  }}/>
-                                        <span style={{height: '25px', width: '45px', fontSize: '18px', marginTop: '12px', marginLeft: '5px', marginLeft: '10px', paddingRight: '0px', border: '0px solid red', fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onClick={handleOpenModal}>Edit</span>
-                                      </div>
-                                      <Divider/>
-                                                              <div style={{marginTop: '5px', marginBottom: '5px', height: '50px', marginLeft: '7.5%', width: '85%', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 5%)', borderRadius: '10px', padding: '0px', display: 'flex', cursor: 'pointer'}}>
-                                                                  <DeleteRoundedIcon style={{height: '25px', width: '25px', marginTop: '10px', marginLeft: '20px'  }}/>
-                                                                  <span style={{height: '25px', width: '45px', fontSize: '18px', marginTop: '12px', marginLeft: '5px', marginLeft: '10px', paddingRight: '0px', border: '0px solid red', fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onClick={handleDeleteWorkout}>Delete</span>
-                                                              </div>
-                                                          </div>
-                                      </Menu>
+                                    >
+                                        <div style={{marginTop: '0px', marginRight: '0px', marginLeft: '0px', padding: '0%', paddingLeft: '0%', width: '150px', height: '110px', border: '0px solid red'}} >
+                                          <div style={{marginTop: '5px', marginBottom: '5px', height: '50px', marginLeft: '7.5%', width: '85%', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 5%)', borderRadius: '10px', padding: '0px', display: 'flex', cursor: 'pointer' }}>
+                                            <ModeEditOutlineRoundedIcon style={{height: '25px', width: '25px', marginTop: '10px', marginLeft: '20px', border: '0px solid black',  }}/>
+                                            <span style={{height: '25px', width: '45px', fontSize: '18px', marginTop: '12px', marginLeft: '5px', marginLeft: '10px', paddingRight: '0px', border: '0px solid red', fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onClick={handleOpenModal}>Edit</span>
+                                          </div>
+                                          <Divider/>
+                                          <div style={{marginTop: '5px', marginBottom: '5px', height: '50px', marginLeft: '7.5%', width: '85%', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 5%)', borderRadius: '10px', padding: '0px', display: 'flex', cursor: 'pointer'}}>
+                                            <DeleteRoundedIcon style={{height: '25px', width: '25px', marginTop: '10px', marginLeft: '20px'  }}/>
+                                            <span style={{height: '25px', width: '45px', fontSize: '18px', marginTop: '12px', marginLeft: '5px', marginLeft: '10px', paddingRight: '0px', border: '0px solid red', fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif'}} onClick={handleDeleteWorkout}>Delete</span>
+                                          </div>
+                                        </div>
+                                    </Menu>
                               </>
                           ) : null}
                       </div>

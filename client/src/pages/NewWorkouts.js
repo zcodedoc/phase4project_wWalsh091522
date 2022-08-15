@@ -8,20 +8,17 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
 function NewWorkouts({ user, setUser }) {
-  const [target, setTarget] = useState(0);
-  // const [target2, setTarget2] = useState(0);
+  const [target, setTarget] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80");
-  const [sets, setSets] = useState(0);
-  const [reps, setReps] = useState(0);
-  const [weight, setWeight] = useState(0);
+  const [sets, setSets] = useState("");
+  const [reps, setReps] = useState("");
+  const [weight, setWeight] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [tags, setTags] = useState([]);
-  // const [tagOption, setTagOption] = useState('');
   const [workoutId, setWorkoutId] = useState();
-  // const [workouts, setWorkouts] = useState([]);
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -97,12 +94,10 @@ function NewWorkouts({ user, setUser }) {
                         <h1 style={{marginLeft: '40px', padding: '0px'}}>{title}</h1>
                         <h1 style={{marginLeft: '40px', padding: '0px'}}>{description}</h1>
                         <Typography style={{marginLeft: '10px', padding: '0px'}}>
-                          <p style={{marginTop: '-10px', marginLeft: '30px', padding: '10px',  fontSize: '18px'}}>By 
-                          <img style={{border: '1px solid white', boxShadow:' 0 0.055em 0.225em rgb(20 20 20 / 45%)', marginBottom: '-10px',marginLeft: '10px', height: '35px', minWidth: '35px', borderRadius: '20px'}}src={user.image}/> @{user.username}</p>
                         </Typography>
                         <div style={{marginLeft: '40px'}}>
                             <div style={{ height: '300px', marginBottom: '80px'}}>
-                                <h2>Stats</h2>
+                                <h2>Workout Stats</h2>
                                     <Stack style={{marginLeft: '5px', marginTop: '5px'}} spacing={4} direction="row">
                                         <Button style={{height: '50px', minWidth: '120px', maxWidth: '120px',   boxShadow: '0 0.055em 0.225em rgb(20 20 20 / 15%)'}}><Typography style={{fontSize: '18px', marginLeft: '-10px'}}>{sets} Sets</Typography></Button>
                                         <Button style={{height: '50px', minWidth: '120px', maxWidth: '120px', boxShadow: '0 0.055em 0.225em rgb(20 20 20 / 15%)'}} ><Typography style={{fontSize: '18px', marginLeft: '-10px'}}>{reps} Reps</Typography></Button>
@@ -117,7 +112,7 @@ function NewWorkouts({ user, setUser }) {
                         <h2 style={{width: '50%', marginLeft: '12%', marginTop: '30px'}}>Create Workout</h2>
                         <form onSubmit={handleSubmit}>
                             <FormField style={{ width: '50%',  marginTop: '25px', marginLeft: '12%'}}>
-                                <Label  style={{paddingBottom: '10px'}} htmlFor="title">Title</Label>
+                                <Label style={{paddingBottom: '10px'}} htmlFor="title">Title</Label>
                                 <Input
                                 style={{padding: '10px'}}
                                   type="text"
