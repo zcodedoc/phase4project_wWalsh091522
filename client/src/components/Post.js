@@ -57,11 +57,11 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
     const open2 = Boolean(anchorEl);
 
     useEffect(() => {
-    fetch("/tags")
-      .then((r) => r.json())
-      .then(setTags)
-      .then(
-      );
+    // fetch("/tags")
+    //   .then((r) => r.json())
+    //   .then(setTags)
+    //   .then(
+    //   );
     }, []);
 
     function handleUpdateWorkoutLocal(updatedWorkout) {

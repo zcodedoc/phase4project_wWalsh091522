@@ -28,6 +28,12 @@ class WorkoutTagsController < ApplicationController
       workouttag.destroy
       head :no_content
     end
+    
+    def destroy_mult
+      del_ids = params["id_list"]
+      WorkoutTag.where(id: del_ids).destroy_all
+      head :no_content
+    end
 
 private
 

@@ -9,21 +9,25 @@ import NewWorkouts from '../pages/NewWorkouts';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     fetch("/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
       }
     });
+    setLoading(false);
   },[]);
 
   
   function handleLogin(user) {
     setUser(user);
   }
-
-  if (!user) return <Login onLogin={handleLogin} />;
+  if (isLoading) return <div>loading</div>;
+  if (!user && !isLoading) return <Login onLogin={handleLogin} />;
+  
 
   return (
     <>

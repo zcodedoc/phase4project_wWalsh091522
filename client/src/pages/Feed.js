@@ -6,7 +6,7 @@ import Post from "../components/Post";
 
 function Feed({user, setUser}) {
   const [workouts, setWorkouts] = useState([]);
-  const [workoutTags, setWorkoutTags] = useState('');
+  const [workoutTags, setWorkoutTags] = useState([]);
   const [comments, setComments] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
   
@@ -79,9 +79,9 @@ function Feed({user, setUser}) {
       fetch("/comments")
       .then((r) => r.json())
       .then(setComments);
-      fetch("/me")
-      .then((r) => r.json())
-      .then(setUser);
+      // fetch("/me")
+      // .then((r) => r.json())
+      // .then(setUser);
       fetch("/workout_tags")
       .then((r) => r.json())
       .then(setWorkoutTags);

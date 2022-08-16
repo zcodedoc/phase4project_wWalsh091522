@@ -12,7 +12,8 @@ import FitnessCenterOutlinedIcon from '@mui/icons-material/FitnessCenterOutlined
 import Fab from '@mui/material/Fab';
 
 
-function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handleUpdateWorkout, handleModalClose, handleUpdateWorkoutLocal, handleTagUpdate }) {
+function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handleModalClose, handleUpdateWorkoutLocal, handleTagUpdate }) {
+  const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
       const [openModal, setOpen] = React.useState(true);
       const [workoutState, setWorkoutState] = useState(workout);
       const [tags, setTags] = useState([]);
@@ -41,7 +42,10 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         let newTags = [...workoutTags];
         let destroyTags = [...deleteTags];
         const delTags = newTags.splice(index, 1);
-        destroyTags.push(delTags[0]);
+        let obj = origWorkoutTags.find(tag => tag.id === delTags[0].id);
+        if (obj) {
+          destroyTags.push(delTags[0].id.toString());
+        }
         console.log(destroyTags)
         setDeleteTags(destroyTags);
         setWorkoutTags(newTags);       
@@ -66,7 +70,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         .then((tags) => {
           let localWorkoutTags = []
           tags.map((tag) => {
-            if (tag.workout_id === workout.id) {
+            if (tag.workout_id === id) {
               localWorkoutTags.push(tag);
             }
           })
@@ -83,37 +87,35 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       }
 
       function workoutTagDelete() {
-        deleteTags.map((workout_tag) => {
-          let obj = origWorkoutTags.find(tag => tag.id === workout_tag.id);
-          if (obj) {
-            fetch(`/workout_tags/${workout_tag.id}`, {
-              method: "DELETE",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  id: workout_tag.id,
-                }),
-                })
-                .then((r) => {
-                setIsLoading(false);
-                if (r.ok) {
-                  console.log("delete workout_tag ok")
-                } else {
-                  r.json().then((err) => console(err.errors));
-                }
-              });
-          }
-        })
+        fetch(`/workout/workout_tags/destroy_mult`, {
+          method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id_list: deleteTags,
+            }),
+            })
+            .then((r) => {
+            setIsLoading(false);
+            if (r.ok) {
+              console.log("delete workout_tag ok")
+              // return;
+            } else {
+              r.json().then((err) => console.log(err));
+              // return;
+            }
+          });
       }
 
  
       function updateWorkoutTags() {
+        // let 
         workoutTagDelete();
-        workoutTags.map((workout_tag) => {
+        workoutTags.forEach((workout_tag) => {
           let obj = origWorkoutTags.find(tag => tag.id === workout_tag.id);
           if (obj) {
-            fetch(`/workout_tags/${workout_tag.id}`, {
+            fetch(`/workout/workout_tags/${workout_tag.id}`, {
               method: "PATCH",
                 headers: {
                   "Content-Type": "application/json",
@@ -134,7 +136,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
               });
             
           }
-          else {
+          else if (!obj) {
             fetch(`/workout_tags`, {
               method: "POST",
                 headers: {
@@ -162,12 +164,12 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       }
 
       function handleLocalModalClose() {
-        setDeleteTags([]);
+        // setDeleteTags([]);
         handleModalClose()
       }
 
       function updateWorkout() {
-        fetch(`/workouts/${workout.id}`, {
+        fetch(`/workouts/${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
