@@ -13,18 +13,24 @@ import Fab from '@mui/material/Fab';
 
 
 function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handleModalClose, handleUpdateWorkoutLocal, handleTagUpdate }) {
-  const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
+  // const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
       const [openModal, setOpen] = React.useState(true);
       const [workoutState, setWorkoutState] = useState(workout);
       const [tags, setTags] = useState([]);
       const [workoutTags, setWorkoutTags] = useState([]);
       const [origWorkoutTags, setOrigWorkoutTags] = useState([]);
       const [deleteTags, setDeleteTags] = useState([]);
+      const [isChanged, setIsChanged] = useState(false);
+      const [isDeleteClicked, setIsDeleteClicked] = useState(false);
+      const [isTagChanged, setIsTagChanged] = useState(false);
+      const [isAddClicked, setIsAddClicked] = useState(false);
       const [isLoading, setIsLoading] = useState(false);
-      const [errors, setErrors] = useState([]);
+      // const [errors, setErrors] = useState([]);
      
       const handleTagChange = (event, index) => {
         let obj = tags.find(tag => tag.id === event.target.value);
+        setIsTagChanged(true);
+        // console.log(isTagChanged);
         let newTag = {
           id: event.target.value,
           name: obj.name,
@@ -39,6 +45,8 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
 
       const handleDeleteTag = (event, index) => {
         event.preventDefault();
+        setIsDeleteClicked(true);
+        // console.log({isDeleteClicked})
         let newTags = [...workoutTags];
         let destroyTags = [...deleteTags];
         const delTags = newTags.splice(index, 1);
@@ -46,13 +54,15 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         if (obj) {
           destroyTags.push(delTags[0].id.toString());
         }
-        console.log(destroyTags)
+        // console.log(destroyTags)
+        // console.log(isDeleteClicked)
         setDeleteTags(destroyTags);
         setWorkoutTags(newTags);       
       };
 
       function handleChange(e) {
-        let test = e.target;
+        setIsChanged(true);
+        // console.log({isChanged})
         setWorkoutState({
         ...workoutState,
         [e.target.id]: e.target.value,
@@ -63,25 +73,28 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         fetch("/tags")
         .then((r) => r.json())
         .then(setTags);
-
-
         fetch("/workout_tags")
         .then((r) => r.json())
         .then((tags) => {
           let localWorkoutTags = []
           tags.map((tag) => {
-            if (tag.workout_id === id) {
+            if (tag.workout_id === workout.id) {
               localWorkoutTags.push(tag);
             }
           })
           setWorkoutTags(localWorkoutTags);
-          setOrigWorkoutTags(localWorkoutTags)
+          setOrigWorkoutTags(localWorkoutTags);
           });
       }, []);
  
       function handleUpdateWorkout(e) {
         e.preventDefault();
-        updateWorkout();
+        // console.log({isChanged})
+        // console.log({isDeleteClicked})
+        // console.log({isAddClicked})
+        if (isChanged) {
+          updateWorkout();
+        }
         handleUpdateWorkoutLocal(workoutState);
         updateWorkoutTags();
       }
@@ -99,7 +112,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
             .then((r) => {
             setIsLoading(false);
             if (r.ok) {
-              console.log("delete workout_tag ok")
+              // console.log("delete workout_tag ok")
               // return;
             } else {
               r.json().then((err) => console.log(err));
@@ -110,55 +123,66 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
 
  
       function updateWorkoutTags() {
-        // let 
-        workoutTagDelete();
-        workoutTags.forEach((workout_tag) => {
-          let obj = origWorkoutTags.find(tag => tag.id === workout_tag.id);
-          if (obj) {
-            fetch(`/workout/workout_tags/${workout_tag.id}`, {
-              method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  id: workout_tag.id,
-                  tag_id: workout_tag.tag_id,
-                }),
-                })
-                .then((r) => {
-                setIsLoading(false);
-                // console.log(r)
-                if (r.ok) {
-                  console.log("update workout_tag ok")
-                } else {
-                  r.json().then((err) => console.log(err));
+        if (isDeleteClicked) {
+          workoutTagDelete();
+          // console.log('is delete clicked and workout tag delete ran')
+        }
+        if (isTagChanged) {
+          // console.log("tag was changed")
+          workoutTags.forEach((workout_tag) => {
+            let obj = origWorkoutTags.find(tag => tag.id === workout_tag.id);
+            // console.log(obj, workout_tag)
+            if (obj && isTagChanged) {
+              fetch(`/workout/workout_tags/${workout_tag.id}`, {
+                method: "PATCH",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    id: workout_tag.id,
+                    tag_id: workout_tag.tag_id,
+                  }),
+                  })
+                  .then((r) => {
+                  setIsLoading(false);
+                  if (r.ok) {
+                    // console.log("update workout_tag ok")
+                  } else {
+                    r.json().then((err) => console.log(err));
+                  }
+                });
+            }
+          })}
+          if (isAddClicked) {
+            // console.log(" add tag was clicked")
+            workoutTags.forEach((workout_tag) => {
+              let obj = origWorkoutTags.find(origWorkoutTag => origWorkoutTag.id === workout_tag.id);
+              // console.log(obj, workout_tag)
+              if (!obj) {
+                fetch(`/workout_tags`, {
+                  method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      tag_id: workout_tag.tag_id,
+                      workout_id: workout_tag.workout_id
+                    }),
+                    })
+                    .then((r) => {
+                    setIsLoading(false);
+    
+                    if (r.ok) {
+                      // console.log("create workout_tag ok")
+                    } else {
+                      r.json().then((err) => console.log(err));
+                    }
+                  });
                 }
-              });
-            
+              }
+            )
           }
-          else if (!obj) {
-            fetch(`/workout_tags`, {
-              method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  tag_id: workout_tag.tag_id,
-                  workout_id: workout_tag.workout_id
-                }),
-                })
-                .then((r) => {
-                setIsLoading(false);
- 
-                if (r.ok) {
-                  console.log("create workout_tag ok")
-                } else {
-                  r.json().then((err) => console.log(err));
-                }
-              });
-
-          }
-          })
+        
           handleTagUpdate(workoutTags);
           handleLocalModalClose();  
       }
@@ -169,7 +193,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       }
 
       function updateWorkout() {
-        fetch(`/workouts/${id}`, {
+        fetch(`/workouts/${workout.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -188,7 +212,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         })
           .then((res) => {
             if (res.ok) {
-              console.log("workout update ok")
+              // console.log("workout update ok")
               // console.log('hitting')
             } else {
               res.json().then(console.log)
@@ -198,9 +222,11 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
 
       function handleAddTag(e) {
         e.preventDefault();
+        setIsAddClicked(true);
+        // console.log({isAddClicked});
 
         let newTag = {
-          id: 22,
+          id: -1,
           tag: tags[0],
           tag_id: tags[0].id,
           workout: workout,
@@ -267,12 +293,15 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
                     <div style={{border: '0px solid red', width: '100%', marginLeft: '0%'}}>
                       <div style={{border: '0px solid blue',boxShadow: '0.0em 0.0em 0.1em 0.0em rgb(10 10 10 / 0%)', marginTop: '0px', display: 'flex', width: '80%', marginLeft: '10%'}}>
                         <Typography style={{fontSize: '18px', border: '0px solid red', width: '100%', height: '50%', marginTop: '5%',  marginLeft: '10%', paddingLeft: '0%', paddingRight: '0%', marginBottom: '0px'}} >Tags</Typography> 
-                        <Button onClick={(e) => handleAddTag(e)} style={{boxShadow: '0px 0px 16px -4px rgba(0, 0, 0, 0.68)', padding: '5px', backgroundColor: 'white', margin: '10px', borderRadius: '50px', display: 'flex', minWidth: '120px', height: '50px', justifyContent: 'center',  marginTop: '10px', marginLeft: '0px'}}>
+                        {workoutTags.length < 3 ? (
+                          <Button onClick={(e) => handleAddTag(e)} style={{boxShadow: '0px 0px 16px -4px rgba(0, 0, 0, 0.68)', padding: '5px', backgroundColor: 'white', margin: '10px', borderRadius: '50px', display: 'flex', minWidth: '120px', height: '50px', justifyContent: 'center',  marginTop: '10px', marginLeft: '0px'}}>
                           <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
                             <Typography style={{padding: '4px', fontSize: '16px', border: '0px solid black', height: '25px', marginLeft: '-5px', textTransform: 'uppercase'}}>Add</Typography>
                             <AddIcon style={{padding: '4px', marginLeft: '-5px', border: '0px solid black', height: '25px',}} />
                           </div>
                         </Button>
+                        ) : null}
+                        
                       </div>
                       <div>
                         <Stack style={{display: 'flex', flexDirection: 'column', maxWidth: '100%', marginLeft: '10%', border: '0px solid black', boxShadow: '0.0em 0.0em 0.1em 0.0em rgb(10 10 10 / 0%)'}} direction="row" spacing={1}>

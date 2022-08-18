@@ -36,8 +36,8 @@ const style = {
     borderRadius: '20px'
   };
 
-function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWorkoutList, onDeleteComment, getNewComments, workout_tag }) {
-    const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
+function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWorkoutList, onDeleteComment, getNewComments, handleUpdateCommentList, workout_tag }) {
+    // const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
     const [workoutState, setWorkoutState] = useState(workout);
     const [workoutTags, setWorkoutTags] = useState(workout.tags);
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -46,31 +46,31 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
     const [isCommentedOn, setIsCommentedOn] = React.useState(false);
     const [postComments, setPostComments] = useState(workout.comments.length);
     const [openModal, setOpen] = React.useState(false);
-    const [openModal2, setOpen2] = React.useState(false);
+    // const [openModal2, setOpen2] = React.useState(false);
     const [openComment, setOpenComment] = React.useState(false);
-    const [errors, setErrors] = useState([]);
-    const [tags, setTags] = useState([]);
-    const [target, setTarget] = useState('');
-    const history = useHistory();
+    // const [errors, setErrors] = useState([]);
+    // const [tags, setTags] = useState([]);
+    // const [target, setTarget] = useState('');
+    // const history = useHistory();
     const handleModalClose = () => setOpen(false);
-    const handleOpen = () => setOpen(true);
+    // const handleOpen = () => setOpen(true);
     const open2 = Boolean(anchorEl);
 
-    useEffect(() => {
+    var myWorkout = false;
+    if (currentUser.id === workout.user.id) {
+      myWorkout = true;
+    }
+
+    // useEffect(() => {
     // fetch("/tags")
     //   .then((r) => r.json())
     //   .then(setTags)
     //   .then(
     //   );
-    }, []);
+    // }, []);
 
     function handleUpdateWorkoutLocal(updatedWorkout) {
       setWorkoutState(updatedWorkout);
-    }
-
-    var myWorkout = false;
-    if (currentUser.id === workout.user.id) {
-      myWorkout = true;
     }
 
     const handleClick2 = (event) => {
@@ -105,7 +105,7 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
           likes: postLikes
         });
         setPostLikes((prev) => prev-1);
-        fetch(`/workouts/${id}/like`, {
+        fetch(`/workouts/${workout.id}/like`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -114,8 +114,7 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
         })
         .then((res) => {
           if (res.ok) {
-                <>
-                </>
+            // console.log(res);
           } 
           else {
             res.json().then(console.log)
@@ -124,10 +123,10 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
         setIsLiked(false);
         }
       else {
-        let newlikes = postLikes + 1
+        // let newlikes = postLikes + 1
         breakoutLikes();
         setIsLiked(true);
-        fetch(`/workouts/${id}/like`, {
+        fetch(`/workouts/${workout.id}/like`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -136,7 +135,7 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
         })
         .then((res) => {
           if (res.ok) {
-            console.log(res);
+            // console.log(res);
           } else {
             res.json().then(console.log)
           }
@@ -145,7 +144,7 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
     }
 
     function handleDeleteWorkout() {
-      fetch(`/workouts/${id}`, {
+      fetch(`/workouts/${workout.id}`, {
         method: "DELETE",
       })
       .then((res) => {
@@ -272,7 +271,7 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
                           <Typography style={{marginRight: '0px', marginLeft: '5px', fontSize: '18px'}}>{postComments}</Typography> 
                         </Fab> 
                             {openComment ? (
-                              <CommentList comments={comments} workout={workout} currentUser={currentUser} getNewComments={getNewComments} onDeleteComment={onDeleteComment} handleUpdateCommCount={handleUpdateCommCount}/>        
+                              <CommentList comments={comments} workout={workout} currentUser={currentUser} getNewComments={getNewComments} onDeleteComment={onDeleteComment} handleUpdateCommCount={handleUpdateCommCount} handleUpdateCommentList={handleUpdateCommentList}/>        
                             ) : null}
                       </div>
                     </div>

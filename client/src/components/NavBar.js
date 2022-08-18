@@ -69,7 +69,7 @@ function NavBar({ user, setUser }) {
                     <div className="topbarDropdown" style={{  marginTop: '0px', marginRight: '0px', marginLeft: '0px', padding: '0px', paddingLeft: '-5%', width: '140px', minHeight: '120px', border: '0px solid black'}} >
                       <Link style={{ color: 'black', textDecoration: 'none'}} to='/profile' className="link">
                         <div style={{ boxShadow: '0 0.055em 0.225em rgb(20 20 20 / 0%)', padding: '4px',  height: '40px', marginTop: '5%', marginBottom: '5%', marginLeft: '5%', borderRadius: '0px',width: '85%'}}>
-                          <img style={{borderRadius: '100px', maxHeight: '35px', minWidth: '35px', marginTop: '5px', marginLeft: '5px', border: '1px solid white', boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 40%)'}} src={user?.image} alt=""/>
+                          <img style={{borderRadius: '100px', minHeight: '35px', maxHeight: '35px', minWidth: '35px', maxWidth: '35px',  marginTop: '5px', marginLeft: '5px', border: '1px solid white', boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 40%)'}} src={user?.image} alt=""/>
                           <Typography style={{marginLeft: '50px', marginTop: '-35px', paddingRight: '0px', fontSize: '16px', fontWeight: '300', textTransform: 'lowercase',  border: '0px solid black'}} >@{user.username}</Typography>
                         </div>
                       </Link>

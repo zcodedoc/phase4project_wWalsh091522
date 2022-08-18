@@ -29,7 +29,7 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
     const [errors, setErrors] = useState([]);
 
     // var myComment = false;
-    // if (currentUser.id === workout.user.id) {
+    // if (currentUser.id === comment.user_id) {
     //   myComment = true;
     // }
 
@@ -41,7 +41,6 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
     const handleClose = () => {
       setAnchorEl(null);
       setOpen(false);
-
     };
 
 
@@ -77,6 +76,7 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
             method: "DELETE",
         }).then((res) => {
             if (res.ok) {
+            // console.log(comment);
             onDeleteComment(comment);
             handleClose();
             handleUpdateCommCount(-1);

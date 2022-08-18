@@ -14,7 +14,7 @@ function Profile({user, setUser}) {
             </div>
             <div style={{ width: '100%', marginLeft: '0%', marginTop: '2%', padding: '0px', display: 'flex',  boxShadow:' 0 0.055em 0.225em rgb(20 20 20 / 15%)'}}>
               <div style={{minHeight: '100%', marginTop: '-5%', marginLeft: '10%', minWidth: '40%'}}>
-                <img style={{marginLeft: '35%', padding: '0px', maxHeight: '100px', border: '2.5px solid white', minWidth: '100px', objectFit: 'cover', borderRadius: '100px'}} src={user.image}></img>
+                <img style={{marginLeft: '35%', padding: '0px', minHeight: '100px', maxHeight: '100px', border: '2.5px solid white', minWidth: '100px', maxWidth: '100px', objectFit: 'cover', borderRadius: '100px'}} src={user.image}></img>
               </div>
               <div style={{display: 'flex', flexDirection: 'column', marginLeft: '-300px', marginTop: '0px'}}>
                 <div style={{display: 'flex', flexDirection: 'row', marginLeft: '0px', marginTop: '0px'}}>
