@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Post.css";
 import Typography from '@mui/material/Typography';
 
-function Tag(tag) {
+function Tag() {
     const [tags, setTags] = useState([]);
 
     useEffect(() => {

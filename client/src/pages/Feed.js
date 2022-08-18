@@ -6,11 +6,7 @@ import Post from "../components/Post";
 
 function Feed({user, setUser}) {
   const [workouts, setWorkouts] = useState([]);
-  // const [workoutTags, setWorkoutTags] = useState([]);
   const [comments, setComments] = useState([]);
-  // const [anchorEl, setAnchorEl] = React.useState(null);
-  
-  // const open2 = Boolean(anchorEl);
 
   function handleUpdateWorkoutList(updatedWorkout) {
     const updatedWorkoutsArray = workouts?.map((workout) => {
@@ -33,16 +29,6 @@ function Feed({user, setUser}) {
     );
   }
 
-  // verify that this is necessary, as we removed the feature allowing a user to edit comment
-  // need to check that this does not pertain to returning correct list of comments after 
-  // one is deleted 
-  // function handleUpdateCommentList(updatedComment) {
-  //   const updatedCommentsArray = comments?.map((comment) => {
-  //     return comment.id === updatedComment.id ? updatedComment : comment;
-  //   });
-  //   setWorkouts(updatedCommentsArray);
-  // }
-
   const getComments = (workout_id) => {
     let currComments = []
     comments.map(comment => {
@@ -52,22 +38,6 @@ function Feed({user, setUser}) {
     })
     return currComments;
   }
-
-  // const getTags = (workout_id) => {
-  //   let workout_tag;
-  //   if (workoutTags) {
-  //     workoutTags.map(tag => {
-  //       if (tag.workout_id === workout_id) {
-  //         workout_tag = tag;
-  //       }
-  //     })
-  //   }
-  //   else {
-  //     console.log("ERROR WITH WORKOUTTAGS LOADING")
-  //   }
-    
-  //   return workout_tag;
-  // }
 
   const getNewComments = () => {
     fetch("/comments")
@@ -82,13 +52,6 @@ function Feed({user, setUser}) {
       fetch("/comments")
       .then((r) => r.json())
       .then(setComments);
-      // fetch("/me")
-      // .then((r) => r.json())
-      // .then(setUser);
-      // fetch("/workout_tags")
-      // .then((r) => r.json())
-      // .then(setWorkoutTags);
-
   }, []);
 
   return (
@@ -106,14 +69,12 @@ function Feed({user, setUser}) {
                         workout={workout}
                         handleUpdateWorkoutList={handleUpdateWorkoutList}
                         onDeleteWorkout={handleDeleteWorkout}
-                        // handleUpdateCommentList={handleUpdateCommentList}
                         onDeleteComment={handleDeleteComment}
                         username={user.username}
                         userimage={user.image}
                         currentUser={user}
                         comments={getComments(workout.id)}
                         getNewComments={getNewComments}
-                        // workout_tag={getTags(workout.id)}
                     />
                   ))
                 ) : (

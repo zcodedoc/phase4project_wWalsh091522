@@ -28,11 +28,6 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
     const [postComments, setPostComments] = useState(comments.length);
     const [errors, setErrors] = useState([]);
 
-    // var myComment = false;
-    // if (currentUser.id === comment.user_id) {
-    //   myComment = true;
-    // }
-
     const handleClick = (event) => {
         setAnchorEl2(event.currentTarget);
         setOpen(true)
@@ -101,7 +96,6 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
                             <Typography style={{ boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 0%)', padding: '10px', border: '0px solid black', minWidth: '200px', height: '20px', marginTop: '0px', borderRadius: '8px', fontSize: '16px', paddingLeft: '15px', marginLeft: '2.5%', marginRight: '10%', marginBottom: '20px'}} >{comment.comment}</Typography>
                           </div>
                           <>
-                          {/* {myComment ? ( */}
                             <div>
                             <Button onClick={handleClick} style={{height: '40px', width: '50px', border: '0px solid black', marginLeft: '0%', marginTop: '10px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)',}}><MoreHorizIcon/></Button>
                                 <Menu
@@ -121,7 +115,6 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
                                   </div>
                                 </Menu>
                                 </div>
-                          {/* ) : null} */}
                           </> 
                         </div>
                       ))

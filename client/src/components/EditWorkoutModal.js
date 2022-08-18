@@ -13,7 +13,6 @@ import Fab from '@mui/material/Fab';
 
 
 function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handleModalClose, handleUpdateWorkoutLocal, handleTagUpdate }) {
-  // const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
       const [openModal, setOpen] = React.useState(true);
       const [workoutState, setWorkoutState] = useState(workout);
       const [tags, setTags] = useState([]);
@@ -25,12 +24,10 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       const [isTagChanged, setIsTagChanged] = useState(false);
       const [isAddClicked, setIsAddClicked] = useState(false);
       const [isLoading, setIsLoading] = useState(false);
-      // const [errors, setErrors] = useState([]);
      
       const handleTagChange = (event, index) => {
         let obj = tags.find(tag => tag.id === event.target.value);
         setIsTagChanged(true);
-        // console.log(isTagChanged);
         let newTag = {
           id: event.target.value,
           name: obj.name,
@@ -46,7 +43,6 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       const handleDeleteTag = (event, index) => {
         event.preventDefault();
         setIsDeleteClicked(true);
-        // console.log({isDeleteClicked})
         let newTags = [...workoutTags];
         let destroyTags = [...deleteTags];
         const delTags = newTags.splice(index, 1);
@@ -54,15 +50,12 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         if (obj) {
           destroyTags.push(delTags[0].id.toString());
         }
-        // console.log(destroyTags)
-        // console.log(isDeleteClicked)
         setDeleteTags(destroyTags);
         setWorkoutTags(newTags);       
       };
 
       function handleChange(e) {
         setIsChanged(true);
-        // console.log({isChanged})
         setWorkoutState({
         ...workoutState,
         [e.target.id]: e.target.value,
@@ -89,9 +82,6 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
  
       function handleUpdateWorkout(e) {
         e.preventDefault();
-        // console.log({isChanged})
-        // console.log({isDeleteClicked})
-        // console.log({isAddClicked})
         if (isChanged) {
           updateWorkout();
         }
@@ -112,11 +102,9 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
             .then((r) => {
             setIsLoading(false);
             if (r.ok) {
-              // console.log("delete workout_tag ok")
-              // return;
+              return;
             } else {
               r.json().then((err) => console.log(err));
-              // return;
             }
           });
       }
@@ -125,13 +113,10 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       function updateWorkoutTags() {
         if (isDeleteClicked) {
           workoutTagDelete();
-          // console.log('is delete clicked and workout tag delete ran')
         }
         if (isTagChanged) {
-          // console.log("tag was changed")
           workoutTags.forEach((workout_tag) => {
             let obj = origWorkoutTags.find(tag => tag.id === workout_tag.id);
-            // console.log(obj, workout_tag)
             if (obj && isTagChanged) {
               fetch(`/workout/workout_tags/${workout_tag.id}`, {
                 method: "PATCH",
@@ -146,7 +131,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
                   .then((r) => {
                   setIsLoading(false);
                   if (r.ok) {
-                    // console.log("update workout_tag ok")
+                    return;
                   } else {
                     r.json().then((err) => console.log(err));
                   }
@@ -154,10 +139,8 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
             }
           })}
           if (isAddClicked) {
-            // console.log(" add tag was clicked")
             workoutTags.forEach((workout_tag) => {
               let obj = origWorkoutTags.find(origWorkoutTag => origWorkoutTag.id === workout_tag.id);
-              // console.log(obj, workout_tag)
               if (!obj) {
                 fetch(`/workout_tags`, {
                   method: "POST",
@@ -173,7 +156,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
                     setIsLoading(false);
     
                     if (r.ok) {
-                      // console.log("create workout_tag ok")
+                      return;
                     } else {
                       r.json().then((err) => console.log(err));
                     }
@@ -188,7 +171,6 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       }
 
       function handleLocalModalClose() {
-        // setDeleteTags([]);
         handleModalClose()
       }
 
@@ -212,8 +194,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
         })
           .then((res) => {
             if (res.ok) {
-              // console.log("workout update ok")
-              // console.log('hitting')
+              return;
             } else {
               res.json().then(console.log)
             }
@@ -223,7 +204,6 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
       function handleAddTag(e) {
         e.preventDefault();
         setIsAddClicked(true);
-        // console.log({isAddClicked});
 
         let newTag = {
           id: -1,

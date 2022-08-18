@@ -37,7 +37,6 @@ const style = {
   };
 
 function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWorkoutList, onDeleteComment, getNewComments, handleUpdateCommentList, workout_tag }) {
-    // const { id, title, description, image, sets, reps, weight, likes, user_id} = workout;
     const [workoutState, setWorkoutState] = useState(workout);
     const [workoutTags, setWorkoutTags] = useState(workout.tags);
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -46,28 +45,14 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
     const [isCommentedOn, setIsCommentedOn] = React.useState(false);
     const [postComments, setPostComments] = useState(workout.comments.length);
     const [openModal, setOpen] = React.useState(false);
-    // const [openModal2, setOpen2] = React.useState(false);
     const [openComment, setOpenComment] = React.useState(false);
-    // const [errors, setErrors] = useState([]);
-    // const [tags, setTags] = useState([]);
-    // const [target, setTarget] = useState('');
-    // const history = useHistory();
     const handleModalClose = () => setOpen(false);
-    // const handleOpen = () => setOpen(true);
     const open2 = Boolean(anchorEl);
 
     var myWorkout = false;
     if (currentUser.id === workout.user.id) {
       myWorkout = true;
     }
-
-    // useEffect(() => {
-    // fetch("/tags")
-    //   .then((r) => r.json())
-    //   .then(setTags)
-    //   .then(
-    //   );
-    // }, []);
 
     function handleUpdateWorkoutLocal(updatedWorkout) {
       setWorkoutState(updatedWorkout);
@@ -114,7 +99,7 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
         })
         .then((res) => {
           if (res.ok) {
-            // console.log(res);
+            return;
           } 
           else {
             res.json().then(console.log)
@@ -123,7 +108,6 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
         setIsLiked(false);
         }
       else {
-        // let newlikes = postLikes + 1
         breakoutLikes();
         setIsLiked(true);
         fetch(`/workouts/${workout.id}/like`, {
@@ -135,7 +119,7 @@ function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWor
         })
         .then((res) => {
           if (res.ok) {
-            // console.log(res);
+            return;
           } else {
             res.json().then(console.log)
           }
