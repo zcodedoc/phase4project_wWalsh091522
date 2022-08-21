@@ -36,7 +36,7 @@ const style = {
     borderRadius: '20px'
   };
 
-function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWorkoutList, onDeleteComment, getNewComments, handleUpdateCommentList, workout_tag }) {
+function Post({workout,  comments, currentUser, onDeleteWorkout, handleUpdateWorkoutList, onDeleteComment, getNewComments, handleUpdateCommentList }) {
     const [workoutState, setWorkoutState] = useState(workout);
     const [workoutTags, setWorkoutTags] = useState(workout.tags);
     const [anchorEl, setAnchorEl] = React.useState(null);

@@ -12,7 +12,6 @@ import Divider from '@mui/material/Divider';
 import styled from "styled-components";
 
 function NavBar({ user, setUser }) {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -31,7 +30,7 @@ function NavBar({ user, setUser }) {
   }
 
   return (
-        <div className={isScrolled ? "navbar scrolled" : "navbar"}>
+        <div>
           <div className="topbarContainer">
             <div className="topbarLeft">
               <Link to='/' className="link">
