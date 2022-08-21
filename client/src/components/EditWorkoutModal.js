@@ -118,7 +118,7 @@ function EditWorkoutModal({workout, currentUser, handleUpdateWorkoutList, handle
           workoutTags.forEach((workout_tag) => {
             let obj = origWorkoutTags.find(tag => tag.id === workout_tag.id);
             if (obj && isTagChanged) {
-              fetch(`/workout/workout_tags/${workout_tag.id}`, {
+              fetch(`/workout_tags/${workout_tag.id}`, {
                 method: "PATCH",
                   headers: {
                     "Content-Type": "application/json",
