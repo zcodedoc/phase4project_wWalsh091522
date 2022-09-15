@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Box } from "../styles";
 import Typography from '@mui/material/Typography';
 import Fab from '@mui/material/Fab';
@@ -22,7 +22,7 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorEl2, setAnchorEl2] = React.useState(null);
     const [open, setOpen] = React.useState(Boolean(anchorEl2));
-    const [comment, setComment] = useState(workout.comment);
+    const [comment, setComment] = useState();
     const [commentState, setCommentState] = useState('');
     const [isCommentedOn, setIsCommentedOn] = React.useState(false);
     const [postComments, setPostComments] = useState(comments.length);
@@ -30,7 +30,7 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
 
     const handleClick = (event) => {
         setAnchorEl2(event.currentTarget);
-        setOpen(true)
+        setOpen(true);
       };
 
     const handleClose = () => {
@@ -96,6 +96,7 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
                             <Typography style={{ boxShadow: '0.0em 0.0em 0.2em -0em rgb(10 10 10 / 0%)', padding: '10px', border: '0px solid black', minWidth: '200px', height: '20px', marginTop: '0px', borderRadius: '8px', fontSize: '16px', paddingLeft: '15px', marginLeft: '2.5%', marginRight: '10%', marginBottom: '20px'}} >{comment.comment}</Typography>
                           </div>
                           <>
+                          {currentUser.id === comment.user_id ? (
                             <div>
                             <Button onClick={handleClick} style={{height: '40px', width: '50px', border: '0px solid black', marginLeft: '0%', marginTop: '10px', boxShadow: '0 0.5em 1em -0.125em rgb(10 10 10 / 0%)',}}><MoreHorizIcon/></Button>
                                 <Menu
@@ -115,6 +116,7 @@ function CommentList({workout, comments, currentUser, onDeleteComment, getNewCom
                                   </div>
                                 </Menu>
                                 </div>
+                                 ) : null}
                           </> 
                         </div>
                       ))

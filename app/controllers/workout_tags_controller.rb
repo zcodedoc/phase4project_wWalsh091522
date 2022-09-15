@@ -48,4 +48,6 @@ private
     def record_not_found 
       render json: {error: "Workout Tag not found"}, status: :not_found
     end 
+
+    
 end
